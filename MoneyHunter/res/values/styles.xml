@@ -1,9 +1,22 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
    
+<style name="tvItemName"><item name="android:textColor">#666699</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textSize">14sp</item>
+</style>
 
+<style name="tvItemDescription"><item name="android:textColor">#9191B5</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textSize">13sp</item>
+</style>
+<style name="tvItemDate"><item name="android:textColor">#9191B5</item>
+    <item name="android:textStyle">italic</item>
+    <item name="android:gravity">right</item>
+    <item name="android:textSize">13sp</item>
+</style>
 </resources>
