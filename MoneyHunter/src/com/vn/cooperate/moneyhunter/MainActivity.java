@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
 import com.slidingmenu.lib.SlidingMenu;
+import com.vn.cooperate.moneyhunter.fragment.ListAdAppFragment;
 
 
 public class MainActivity extends FragmentActivity {
@@ -23,6 +24,7 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
 		
 		slideMenu = (SlidingMenu) findViewById(R.id.sliding_menu);
 		imgMenu = (ImageView) findViewById(R.id.imgMenu);
@@ -43,6 +45,9 @@ public class MainActivity extends FragmentActivity {
 				}
 			}
 		});
+		
+		addFragment(new ListAdAppFragment());
+		
 	}
 
 	
@@ -60,4 +65,17 @@ public class MainActivity extends FragmentActivity {
 		
 	}
 	
+	
+	public void addFragment(Fragment fragment) {
+		try {
+			curFragment = fragment;
+			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+			ft.add(R.id.lnHomeContainer, fragment);
+			ft.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			Log.e("ERR change frag ",""+ e.getMessage());
+		}
+		
+	}
 }
