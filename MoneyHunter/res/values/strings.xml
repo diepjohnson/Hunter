@@ -4,5 +4,18 @@
     <string name="app_name">Money Hunter</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="number_notify">Thông báo:</string>
+    <string name="download">Tải Apps - Kiếm tiền</string>
+    <string name="exchange">Đổi thưởng</string>
+    <string name="intro_code">Mã giới thiệu</string>
+    <string name="invite_friend">Mời bạn bè</string>
+    <string name="friends_list">Danh sách bạn bè</string>
+    <string name="income_statistic">Thống kê thu nhập</string>
+    <string name="lucky_hand">Lá bài may mắn</string>
+    <string name="terms_policy">Điều khoản sử dụng</string>
+    <string name="usage_guide">Hướng dẫn sử dụng</string>
+    <string name="settings">Cài đặt</string>
+    <string name="contacts">Liên hệ</string>
+    <string name="facebook_app_id">840614236033853</string>
 
 </resources>
