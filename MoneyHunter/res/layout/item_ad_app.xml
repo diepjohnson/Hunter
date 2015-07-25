@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:background="@color/appbackground"
+    android:padding="5dp" >
+
+    <ImageView
+        android:id="@+id/imgAppAvatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_launcher" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:paddingLeft="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tvAppName"
+            style="@style/tvItemName"
+            android:text="Luyen Tu vung"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2" />
+        <Button 
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_width="80dp"
+            android:background="@drawable/orange_button"
+            android:text="+1000 C"
+            android:textStyle="bold"
+            android:textColor="@color/orange"
+            android:layout_height="35dp"/>
+
+<!--         <TextView -->
+<!--             style="@style/tvItemDescription" -->
+<!--             android:id="@+id/tvDescription" -->
+<!--             android:text="ung dung giup luyen tu vung nhanh chong va de dang" -->
+<!--             android:layout_width="fill_parent" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:maxLines="2" /> -->
+<!--          <TextView -->
+<!--             style="@style/tvItemDate" -->
+<!--             android:id="@+id/tvCreatedDate" -->
+<!--             android:text="15/10/2015" -->
+<!--             android:layout_width="fill_parent" -->
+<!--             android:layout_height="wrap_content" -->
+<!--            /> -->
+    </LinearLayout>
+    
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grey_button2"
+        android:textStyle="bold"
+        android:textColor="#d5d5d5"
+        android:height="40dp"
+        android:text="Install" />
+
+</LinearLayout>

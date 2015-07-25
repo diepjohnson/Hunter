@@ -3,6 +3,7 @@ package com.vn.cooperate.moneyhunter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -20,8 +21,13 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.slidingmenu.lib.SlidingMenu;
+import com.vn.cooperate.moneyhunter.fragment.ListAdAppFragment;
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
 	private SlidingMenu slideMenu;
@@ -34,8 +40,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		FacebookSdk.sdkInitialize(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		managerCallback = CallbackManager.Factory.create();
 		initUIControl();
 		getKeyHash();
 	}
@@ -51,8 +59,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				md = MessageDigest.getInstance("SHA");
 				md.update(signature.toByteArray());
 				String something = new String(Base64.encode(md.digest(), 0));
-				// String something = new
-				// String(Base64.encodeBytes(md.digest()));
 				Log.e("hash key", something);
 			}
 		} catch (NameNotFoundException e1) {
@@ -70,7 +76,52 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		imgMenu.setOnClickListener(this);
 		rlAvatar = (RelativeLayout) findViewById(R.id.rl_avatar);
 		rlAvatar.setOnClickListener(this);
+		btnLogin = (LoginButton) findViewById(R.id.login_button);
+		btnLogin.setPublishPermissions("user_friends");//public_profile //user_status //publish_actions
+		btnLogin.setPublishPermissions("public_profile");
+		btnLogin.setPublishPermissions("publish_actions");
+		btnLogin.registerCallback(managerCallback, new FacebookCallback<LoginResult>() {
+			
+			@Override
+			public void onSuccess(LoginResult result) {
+				Log.e("USERID", "is " + result.getAccessToken().getUserId());
+				
+			}
+			
+			@Override
+			public void onError(FacebookException error) {
+				Log.e("Error", "is " + error.toString());
+			}
+			
+			@Override
+			public void onCancel() {
+				
+			}
+		});
 
+		
+		
+		slideMenu = (SlidingMenu) findViewById(R.id.sliding_menu);
+		imgMenu = (ImageView) findViewById(R.id.imgMenu);
+		imgMenu.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(!isShowMenu)
+				{
+					slideMenu.showBehind();
+					isShowMenu = true;
+				}
+				else
+				{
+					slideMenu.showAbove();
+					isShowMenu = false;
+				}
+			}
+		});
+		
+		addFragment(new ListAdAppFragment());
+		
 	}
 
 	Fragment curFragment;
@@ -83,7 +134,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			ft.replace(R.id.lnHomeContainer, fragment);
 			ft.commit();
 		} catch (Exception e) {
-			// TODO: handle exception
 			Log.e("ERR change frag ", "" + e.getMessage());
 		}
 
@@ -111,4 +161,21 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		}
 	}
 
+	
+	
+	public void addFragment(Fragment fragment) {
+		try {
+			curFragment = fragment;
+			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+			ft.add(R.id.lnHomeContainer, fragment);
+			ft.commit();
+		} catch (Exception e) {
+			Log.e("ERR change frag ",""+ e.getMessage());
+		}
+		
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		managerCallback.onActivityResult(requestCode, resultCode, data);
+	}
 }
