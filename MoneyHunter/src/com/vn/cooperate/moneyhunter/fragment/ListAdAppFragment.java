@@ -6,13 +6,15 @@ import java.util.List;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.graphics.Paint.Join;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 
 import com.vn.cooperate.moneyhunter.R;
@@ -20,7 +22,6 @@ import com.vn.cooperate.moneyhunter.adater.ListAdAppAdapter;
 import com.vn.cooperate.moneyhunter.connect.AppConnect;
 import com.vn.cooperate.moneyhunter.model.AppModel;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
-import com.vn.cooperate.moneyhunter.util.ConnectSupport;
 
 public class ListAdAppFragment extends Fragment {
 
@@ -30,7 +31,8 @@ public class ListAdAppFragment extends Fragment {
 	List<AppModel> listApp = new ArrayList<AppModel>();
 	int start=0;
 	int number =10;
-	
+	Boolean isScroll =false;
+	Boolean isStartScroll =false;
 	ListAdAppAdapter adapter;
 	@Override
 	public void onAttach(Activity activity) {
@@ -40,7 +42,82 @@ public class ListAdAppFragment extends Fragment {
 		inflater = (LayoutInflater) mActivity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 	}
 	
-	Handler handle = new Handler();
+	
+	
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		adapter.notifyDataSetChanged();
+	}
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.fragment_list_ad_app, container, false);
+		lvListAdApp = (ListView) v.findViewById(R.id.lvListAdApp);
+		
+		adapter = new ListAdAppAdapter (listApp,mActivity.getBaseContext());
+		lvListAdApp.setAdapter(adapter);
+		AppConnect.getListADAPP(start, number, getListAppListener);
+		
+		//connect.getJSONFromUrl(API.GET_LIST_AD_APP, params, listener)
+//		lvListAdApp.setOnScrollListener(new OnScrollListener() {
+//	        private int mLastFirstVisibleItem;
+//
+//	        @Override
+//	        public void onScrollStateChanged(AbsListView view, int scrollState) {
+//
+//	        }
+//
+//	        @Override
+//	        public void onScroll(AbsListView view, int firstVisibleItem,
+//	                int visibleItemCount, int totalItemCount) {
+//
+//	            if(mLastFirstVisibleItem<firstVisibleItem)
+//	            {
+//	                Log.i("SCROLLING DOWN","TRUE");
+//	            }
+//	            if(mLastFirstVisibleItem>firstVisibleItem)
+//	            {
+//	                Log.i("SCROLLING UP","TRUE");
+//	                if (start !=-1) {
+//						//List<ClipModel> temp =getDataByPage();
+//						
+//						AppConnect.getListADAPP(start, number, getListAppListener);
+//					}
+//	            }
+//	            mLastFirstVisibleItem=firstVisibleItem;
+//
+//	        }
+//	    });
+		//su kien keo den cuoi cua list de load them du lieu
+		lvListAdApp.setOnScrollListener(new OnScrollListener() {
+					@Override
+					public void onScroll(AbsListView view, int firstVisibleItem,
+							int visibleItemCount, int totalItemCount) {
+						
+						if (isStartScroll&&!isScroll &&(firstVisibleItem + visibleItemCount) == totalItemCount) {
+							Log.e(start+"START______________________________", start+"");
+							if (start !=-1) {
+								//List<ClipModel> temp =getDataByPage();
+								
+								AppConnect.getListADAPP(start, number, getListAppListener);
+								isScroll = true;
+							}
+						}
+						
+					}
+					@Override
+					public void onScrollStateChanged(AbsListView view, int scrollState) {}
+				});
+		
+		return v;
+	}
+	
+	
+Handler handle = new Handler();
 	
 	ConnectApiListener getListAppListener = new ConnectApiListener() {
 		
@@ -55,13 +132,32 @@ public class ListAdAppFragment extends Fragment {
 				public void run() {
 					// TODO Auto-generated method stub
 					List<AppModel> list = 	AppConnect.getListAdAppFromJson(data);
-					if(list.size()>0)
+					if(!isScroll)
 					{
-					
-					listApp.addAll(list);
-					adapter.notifyDataSetChanged();
-
+						if(list.size()>0)
+						{
+						
+						listApp.addAll(list);
+						adapter.notifyDataSetChanged();
+						start+= list.size();
+						isStartScroll=true;
+						}
 					}
+					else
+					{
+						if(list.size()>0)
+						{
+						listApp.addAll(list);
+						adapter.notifyDataSetChanged();
+						start+= list.size();
+						}
+						else
+						{
+							start=-1;
+						}
+						isScroll=false;
+					}
+					
 				}
 			});
 	
@@ -73,21 +169,5 @@ public class ListAdAppFragment extends Fragment {
 			
 		}
 	};
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		View v = inflater.inflate(R.layout.fragment_list_ad_app, container, false);
-		lvListAdApp = (ListView) v.findViewById(R.id.lvListAdApp);
-		
-		adapter = new ListAdAppAdapter (listApp,mActivity.getBaseContext());
-		lvListAdApp.setAdapter(adapter);
-		AppConnect.getListADAPP(start, number, getListAppListener);
-		
-		//connect.getJSONFromUrl(API.GET_LIST_AD_APP, params, listener)
-		
-		return v;
-	}
-	
 	
 }

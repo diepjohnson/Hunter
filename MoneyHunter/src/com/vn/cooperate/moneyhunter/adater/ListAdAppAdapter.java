@@ -4,11 +4,16 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,35 +42,7 @@ public class ListAdAppAdapter extends BaseAdapter {
 		inflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 		listAQ = new AQuery(mContext);
 		
-//	    ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(mContext)
-//        .threadPriority(Thread.NORM_PRIORITY - 2)
-//        .denyCacheImageMultipleSizesInMemory()
-//        .discCacheFileNameGenerator(new Md5FileNameGenerator())
-//        .tasksProcessingOrder(QueueProcessingType.LIFO)
-//        .enableLogging()
-//        .build();
-//		options = new DisplayImageOptions.Builder()
-//				.showStubImage(R.drawable.ic_photo_loading)
-//				.showImageForEmptyUri(R.drawable.ic_photo_corrupt)
-//				.showImageOnFail(R.drawable.ic_photo_corrupt)
-//				.cacheInMemory().cacheOnDisc().build();
-//		imageLoader = ImageLoader.getInstance();
-//		imageLoader.init(config);
-//		
-//		imgLoadingListener  = new ImageLoadingListener() {
-//			
-//			@Override
-//			public void onLoadingStarted(String imageUri, View view) {}
-//			
-//			@Override
-//			public void onLoadingFailed(String imageUri, View view,FailReason failReason) {}
-//			
-//			@Override
-//			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {}
-//			
-//			@Override
-//			public void onLoadingCancelled(String imageUri, View view) {}
-//		};
+
 	}
 
 	@Override
@@ -91,8 +68,8 @@ public class ListAdAppAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		View v;
-		Holder mHolder;
-		AppModel data = listApp.get(position);
+		final Holder mHolder;
+		final AppModel data = listApp.get(position);
 		if(convertView==null)
 		{
 			v= inflater.inflate(R.layout.item_ad_app, parent, false);
@@ -100,7 +77,7 @@ public class ListAdAppAdapter extends BaseAdapter {
 			mHolder.imgAvatar = (ImageView) v.findViewById(R.id.imgAppAvatar);
 		//	mHolder.tvDescription = (TextView) v.findViewById(R.id.tvDescription);
 			mHolder.tvAppName = (TextView) v.findViewById(R.id.tvAppName);
-			//mHolder.tvCreatedDate = (TextView)v.findViewById(R.id.tvCreatedDate);
+			mHolder.btnInstal = (Button) v.findViewById(R.id.btnInstall);
 			v.setTag(mHolder);
 		}
 		else
@@ -110,14 +87,64 @@ public class ListAdAppAdapter extends BaseAdapter {
 		}
 		
 		mHolder.tvAppName.setText(data.getAppName());
-		//mHolder.tvDescription.setText(data.getDescription());
-	//	mHolder.tvCreatedDate.setText(data.getCreatedDate().toString());
+		
 		Log.e("Icon ", data.getAvatarUrl());
 		AQuery aq = listAQ.recycle(v);
 		aq.id(mHolder.imgAvatar).image(data.getAvatarUrl(), true, true, 0, 0, null, 0, 1.0f);
 	
-		//imageLoader.displayImage(data.getAvatarUrl(), mHolder.imgAvatar, options, imgLoadingListener);
-		//PhotoLoader.loadPhotoOrigin(data.getAvatarUrl(),mHolder.imgAvatar, mContext);
+		
+		if (mContext.getPackageManager().getLaunchIntentForPackage(data.getAppPackage()) == null)
+		{
+			mHolder.btnInstal.setText(mContext.getString(R.string.install));
+			mHolder.btnInstal.setBackgroundResource(R.drawable.grey_button2);
+			mHolder.btnInstal.setTextColor(mContext.getResources().getColor(R.color.grey));
+			mHolder.isIntalled = false;
+		}
+		else
+		{
+			mHolder.btnInstal.setText(mContext.getString(R.string.getCoin));
+			mHolder.btnInstal.setBackgroundResource(R.drawable.full_orange_button);
+			mHolder.btnInstal.setTextColor(mContext.getResources().getColor(R.color.white));
+			mHolder.isIntalled = true;
+		}
+		
+		mHolder.btnInstal.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(!mHolder.isIntalled)
+				{
+					try {
+						Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id="+data.getAppPackage()));
+								intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					    mContext.startActivity(intent);
+					} catch (android.content.ActivityNotFoundException anfe) {
+						Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id="+data.getAppPackage()));
+								intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						
+						 mContext.startActivity(intent);
+					}
+				}
+				else
+				{
+					Intent intent;
+					PackageManager manager = mContext.getPackageManager();
+					try {
+						intent = manager.getLaunchIntentForPackage(data.getAppPackage());
+						
+						intent.addCategory(Intent.CATEGORY_LAUNCHER);
+						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						 mContext.startActivity(intent);
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					}
+					
+				}
+				
+			}
+		});
 		return v;
 	}
 	
@@ -125,6 +152,8 @@ public class ListAdAppAdapter extends BaseAdapter {
 	{
 		ImageView imgAvatar;
 		TextView tvAppName;
+		Button btnInstal;
+		Boolean isIntalled =false;
 		//TextView tvDescription;
 		//TextView tvCreatedDate;
 	}

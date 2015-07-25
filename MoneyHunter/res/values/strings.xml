@@ -4,5 +4,9 @@
     <string name="app_name">Money Hunter</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <!-- ducnm start -->
+    <string name="install">Install Now</string>
+      <string name="getCoin">Get Coin</string>
+    <!-- ducnm end -->
 
 </resources>
