@@ -17,5 +17,9 @@
     <string name="settings">Cài đặt</string>
     <string name="contacts">Liên hệ</string>
     <string name="facebook_app_id">840614236033853</string>
+    <!-- ducnm start -->
+    <string name="install">Install Now</string>
+    <string name="getCoin">Get Coin</string>
+    <!-- ducnm end -->
 
 </resources>

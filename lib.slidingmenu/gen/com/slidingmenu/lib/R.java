@@ -111,25 +111,25 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static int viewBehind=0x7f010001;
     }
     public static final class color {
-        public static int holo_blue_bright=0x7f050000;
+        public static int holo_blue_bright=0x7f040000;
     }
     public static final class dimen {
-        public static int menu_header_line=0x7f060002;
-        public static int menu_header_padding_top=0x7f060001;
-        public static int menu_icon_side=0x7f060003;
-        public static int menu_item_padding=0x7f060000;
+        public static int menu_header_line=0x7f050002;
+        public static int menu_header_padding_top=0x7f050001;
+        public static int menu_icon_side=0x7f050003;
+        public static int menu_item_padding=0x7f050000;
     }
     public static final class drawable {
         public static int defaultshadow=0x7f020000;
     }
     public static final class id {
-        public static int fullscreen=0x7f040001;
-        public static int margin=0x7f040000;
-        public static int selected_view=0x7f040002;
-        public static int slidingmenulayout=0x7f040004;
-        public static int slidingmenumain=0x7f040003;
-        public static int slidingmenurowicon=0x7f040005;
-        public static int slidingmenurowtitle=0x7f040006;
+        public static int fullscreen=0x7f060001;
+        public static int margin=0x7f060002;
+        public static int selected_view=0x7f060000;
+        public static int slidingmenulayout=0x7f060004;
+        public static int slidingmenumain=0x7f060003;
+        public static int slidingmenurowicon=0x7f060005;
+        public static int slidingmenurowtitle=0x7f060006;
     }
     public static final class layout {
         public static int list=0x7f030000;
@@ -195,7 +195,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 </table>
           @attr name com.slidingmenu.lib:aboveTouchMode
         */
-        public static final int SlidingMenu_aboveTouchMode = 5;
+        public static int SlidingMenu_aboveTouchMode = 5;
         /**
           <p>This symbol is the offset where the {@link com.slidingmenu.lib.R.attr#behindFadeDegree}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -209,7 +209,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.slidingmenu.lib:behindFadeDegree
         */
-        public static final int SlidingMenu_behindFadeDegree = 10;
+        public static int SlidingMenu_behindFadeDegree = 10;
         /**
           <p>This symbol is the offset where the {@link com.slidingmenu.lib.R.attr#behindFadeEnabled}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -223,7 +223,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.slidingmenu.lib:behindFadeEnabled
         */
-        public static final int SlidingMenu_behindFadeEnabled = 9;
+        public static int SlidingMenu_behindFadeEnabled = 9;
         /**
           <p>This symbol is the offset where the {@link com.slidingmenu.lib.R.attr#behindOffset}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -239,7 +239,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.slidingmenu.lib:behindOffset
         */
-        public static final int SlidingMenu_behindOffset = 2;
+        public static int SlidingMenu_behindOffset = 2;
         /**
           <p>This symbol is the offset where the {@link com.slidingmenu.lib.R.attr#behindScrollScale}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -253,7 +253,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.slidingmenu.lib:behindScrollScale
         */
-        public static final int SlidingMenu_behindScrollScale = 4;
+        public static int SlidingMenu_behindScrollScale = 4;
         /**
           <p>This symbol is the offset where the {@link com.slidingmenu.lib.R.attr#behindTouchMode}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -270,7 +270,7 @@ containing a value of this type.
 </table>
           @attr name com.slidingmenu.lib:behindTouchMode
         */
-        public static final int SlidingMenu_behindTouchMode = 6;
+        public static int SlidingMenu_behindTouchMode = 6;
         /**
           <p>This symbol is the offset where the {@link com.slidingmenu.lib.R.attr#behindWidth}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -286,7 +286,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.slidingmenu.lib:behindWidth
         */
-        public static final int SlidingMenu_behindWidth = 3;
+        public static int SlidingMenu_behindWidth = 3;
         /**
           <p>This symbol is the offset where the {@link com.slidingmenu.lib.R.attr#selectorDrawable}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -296,7 +296,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.slidingmenu.lib:selectorDrawable
         */
-        public static final int SlidingMenu_selectorDrawable = 12;
+        public static int SlidingMenu_selectorDrawable = 12;
         /**
           <p>This symbol is the offset where the {@link com.slidingmenu.lib.R.attr#selectorEnabled}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -310,7 +310,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.slidingmenu.lib:selectorEnabled
         */
-        public static final int SlidingMenu_selectorEnabled = 11;
+        public static int SlidingMenu_selectorEnabled = 11;
         /**
           <p>This symbol is the offset where the {@link com.slidingmenu.lib.R.attr#shadowDrawable}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -320,7 +320,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.slidingmenu.lib:shadowDrawable
         */
-        public static final int SlidingMenu_shadowDrawable = 7;
+        public static int SlidingMenu_shadowDrawable = 7;
         /**
           <p>This symbol is the offset where the {@link com.slidingmenu.lib.R.attr#shadowWidth}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -336,7 +336,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.slidingmenu.lib:shadowWidth
         */
-        public static final int SlidingMenu_shadowWidth = 8;
+        public static int SlidingMenu_shadowWidth = 8;
         /**
           <p>This symbol is the offset where the {@link com.slidingmenu.lib.R.attr#viewAbove}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -346,7 +346,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.slidingmenu.lib:viewAbove
         */
-        public static final int SlidingMenu_viewAbove = 0;
+        public static int SlidingMenu_viewAbove = 0;
         /**
           <p>This symbol is the offset where the {@link com.slidingmenu.lib.R.attr#viewBehind}
           attribute's value can be found in the {@link #SlidingMenu} array.
@@ -356,6 +356,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.slidingmenu.lib:viewBehind
         */
-        public static final int SlidingMenu_viewBehind = 1;
+        public static int SlidingMenu_viewBehind = 1;
     };
 }

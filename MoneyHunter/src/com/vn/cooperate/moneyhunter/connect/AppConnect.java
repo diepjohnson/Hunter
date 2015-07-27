@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.vn.cooperate.moneyhunter.model.AppModel;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
 import com.vn.cooperate.moneyhunter.util.ConnectSupport;
@@ -19,6 +21,8 @@ public class AppConnect {
 	public static void getListADAPP(int start,int num,ConnectApiListener listener)
 	{
 		num = start+num;
+		
+		Log.e("Start", start+"end "+num);
 		ConnectSupport cnn = new ConnectSupport();
 		List<NameValuePair> param = new ArrayList<NameValuePair>();
 		param.add(cnn.getParam("start", start+""));

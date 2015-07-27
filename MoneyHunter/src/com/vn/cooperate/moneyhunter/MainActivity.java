@@ -85,6 +85,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			@Override
 			public void onSuccess(LoginResult result) {
 				Log.e("USERID", "is " + result.getAccessToken().getUserId());
+//				result.getAccessToken().
 				
 			}
 			
