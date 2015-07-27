@@ -17,8 +17,8 @@ import com.vn.cooperate.moneyhunter.util.ConnectSupport;
 public class AppConnect {
 	 static String GET_LIST_AD_APP = "http://prosoftforlife.com/moneyhunter/getListAdApp.php";
 
-	
-	public static void getListADAPP(int start,int num,ConnectApiListener listener)
+	 
+	 public static void getListADAPP(int start,int num,ConnectApiListener listener)
 	{
 		num = start+num;
 		
