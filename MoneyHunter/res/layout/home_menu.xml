@@ -109,29 +109,12 @@
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
-        <View
-            android:id="@+id/divider3"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/menu_exchange"
-            android:background="@android:color/darker_gray" />
-
-        <TextView
-            android:id="@+id/menu_intro_code"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/divider3"
-            android:background="@color/slide_menu"
-            android:padding="10dp"
-            android:text="@string/intro_code"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
 
         <View
             android:id="@+id/divider4"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/menu_intro_code"
+            android:layout_below="@id/menu_exchange"
             android:background="@android:color/darker_gray" />
 
         <TextView

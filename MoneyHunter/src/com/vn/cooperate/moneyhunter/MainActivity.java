@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -37,15 +38,27 @@ import com.slidingmenu.lib.SlidingMenu;
 import com.vn.cooperate.moneyhunter.connect.UserConnect;
 import com.vn.cooperate.moneyhunter.fragment.ListAdAppFragment;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
+import com.vn.cooperate.moneyhunter.util.MoneySharedPreferences;
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
 	private SlidingMenu slideMenu;
 	private ImageView imgMenu;
 	private Boolean isShowMenu = false;
-	private RelativeLayout rlAvatar;
+	private TextView tvMonetize;
+	private TextView tvExchange;
+	private TextView tvInvite;
+	private TextView tvFriends;
+	private TextView tvStatistic;
+	private TextView tvLucky;
+	private TextView tvTerms;
+	private TextView tvGuide;
+	private TextView tvSetting;
+	private TextView tvContacts;
+
 	private LoginButton btnLogin;
 	private CallbackManager managerCallback;
 	private Handler handler;
+	private MoneySharedPreferences mPreferences;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +66,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		managerCallback = CallbackManager.Factory.create();
+		mPreferences = new MoneySharedPreferences(this);
 		initUIControl();
 		getKeyHash();
 	}
@@ -83,8 +97,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		slideMenu = (SlidingMenu) findViewById(R.id.sliding_menu);
 		imgMenu = (ImageView) findViewById(R.id.imgMenu);
 		imgMenu.setOnClickListener(this);
-		rlAvatar = (RelativeLayout) findViewById(R.id.rl_avatar);
-		rlAvatar.setOnClickListener(this);
+		tvMonetize = (TextView) findViewById(R.id.menu_download);
+		tvMonetize.setOnClickListener(this);
 		btnLogin = (LoginButton) findViewById(R.id.login_button);
 		btnLogin.setPublishPermissions("user_friends");// public_profile
 														// //user_status
@@ -108,22 +122,26 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 											GraphResponse response) {
 										Log.d("response",
 												"response" + object.toString());
-										
+
 										try {
-											final String name = object.getString("name");
-											final String facebookId = object.getString("id");
-											final String email = object.getString("email");
+											final String name = object
+													.getString("name");
+											final String facebookId = object
+													.getString("id");
+											final String email = object
+													.getString("email");
 											handler.post(new Runnable() {
-												
+
 												@Override
 												public void run() {
-													UserConnect.logon(name, email,
-															facebookId, "", 1,
+													UserConnect.logon(name,
+															email, facebookId,
+															"a1b2c3d4", 1,
 															logonListener);
-													
+
 												}
 											});
-											
+
 										} catch (JSONException e) {
 											e.printStackTrace();
 										}
@@ -196,8 +214,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				isShowMenu = false;
 			}
 			break;
-		case R.id.rl_avatar:
-			Toast.makeText(MainActivity.this, "loging in facebook",
+		case R.id.menu_download:
+			Toast.makeText(MainActivity.this, "tai app kiem tien",
 					Toast.LENGTH_SHORT).show();
 			break;
 
@@ -228,6 +246,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		@Override
 		public void connectSucessfull(JSONObject data) {
+			handleLogin(data);
 		}
 
 		@Override
@@ -235,4 +254,36 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		}
 	};
+
+	protected void handleLogin(JSONObject data) {
+		int returnCode = -1;
+		try {
+			returnCode = data.getInt("errorCode");
+			JSONObject user = data.getJSONObject("user");
+			String userId = user.getString("userId");
+			mPreferences.setUserID(userId);
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		if (returnCode != 0) {
+			runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					Toast.makeText(MainActivity.this, "Error Login",
+							Toast.LENGTH_SHORT).show();
+				}
+			});
+		} else {
+			runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					Toast.makeText(MainActivity.this, " Login successfuly",
+							Toast.LENGTH_SHORT).show();
+				}
+			});
+		}
+	}
 }

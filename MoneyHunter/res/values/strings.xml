@@ -21,5 +21,19 @@
     <string name="install">Install Now</string>
     <string name="getCoin">Get Coin</string>
     <!-- ducnm end -->
+    <!-- Fragment Invite -->
+    <string name="invite_code">Mã giới thiệu:</string>
+    <string name="label_type_code">Nhập mã giới thiệu:</string>
+    <string name="desscription">Gửi mã này cho bạn bè để nhập vào ô </string>
+    <string name="type_invite_code">Nhập mã giới thiệu để nhận</string>
+    <string name="invite_benefit">xu với mỗi người bạn.</string>
+    <string name="invite_income">1000</string>
+    <string name="btn_submit">Xác nhận</string>
+    <string name="invite_annotation">Mỗi tài khoản chỉ nhập được mã xác nhận 1 lần</string>
+    <string name="label_share">CHIA SẺ APP VỚI BẠN BÈ </string>
+    <string name="share_via_email">EMAIL</string>
+    <string name="share_via_sms">SMS</string>
+     <string name="share_via_gplus">GOOGLE+</string>
+      <string name="share_via_fb">FACEBOOK</string>
 
 </resources>

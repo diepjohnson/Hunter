@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
 import com.vn.cooperate.moneyhunter.util.ConnectSupport;
+import com.vn.cooperate.moneyhunter.util.MoneySharedPreferences;
 
 public class UserConnect {
 	static String URL = "http://prosoftforlife.com/moneyhunter/signin.php";
@@ -20,9 +23,5 @@ public class UserConnect {
 		params.add(ConnectSupport.getParam("type", ""+type));
 		cnn.getJSONFromUrl(URL, params, listener);
 	} 
-	public static String getLogonResponse(){
-		String response = " ";
-		return response;
-		
-	} 
+	
 }
