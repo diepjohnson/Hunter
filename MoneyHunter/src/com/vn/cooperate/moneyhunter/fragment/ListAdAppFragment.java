@@ -6,6 +6,7 @@ import java.util.List;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import com.vn.cooperate.moneyhunter.adapter.ListAdAppAdapter;
 import com.vn.cooperate.moneyhunter.connect.AppConnect;
 import com.vn.cooperate.moneyhunter.model.AppModel;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
+import com.vn.cooperate.moneyhunter.util.DialogUtils;
 
 public class ListAdAppFragment extends Fragment {
 
@@ -31,6 +33,7 @@ public class ListAdAppFragment extends Fragment {
 	List<AppModel> listApp = new ArrayList<AppModel>();
 	int start=0;
 	int number =10;
+	int USER_ID =2;
 	Boolean isScroll =false;
 	Boolean isStartScroll =false;
 	ListAdAppAdapter adapter;
@@ -60,7 +63,8 @@ public class ListAdAppFragment extends Fragment {
 		
 		adapter = new ListAdAppAdapter (listApp,mActivity.getBaseContext());
 		lvListAdApp.setAdapter(adapter);
-		AppConnect.getListADAPP(start, number, getListAppListener);
+		DialogUtils.vDialogLoadingShowProcessing(mActivity, false);
+		AppConnect.getListADAPP(start, number,USER_ID, getListAppListener);
 		
 		//su kien keo den cuoi cua list de load them du lieu
 		lvListAdApp.setOnScrollListener(new OnScrollListener() {
@@ -72,8 +76,8 @@ public class ListAdAppFragment extends Fragment {
 							Log.e(start+"START______________________________", start+"");
 							if (start !=-1) {
 								//List<ClipModel> temp =getDataByPage();
-								
-								AppConnect.getListADAPP(start, number, getListAppListener);
+								DialogUtils.vDialogLoadingShowProcessing(mActivity, false);
+								AppConnect.getListADAPP(start, number,USER_ID, getListAppListener);
 								isScroll = true;
 							}
 						}
@@ -100,6 +104,7 @@ Handler handle = new Handler();
 				
 				@Override
 				public void run() {
+					DialogUtils.vDialogLoadingDismiss();
 					// TODO Auto-generated method stub
 					List<AppModel> list = 	AppConnect.getListAdAppFromJson(data);
 					if(!isScroll)
@@ -136,7 +141,15 @@ Handler handle = new Handler();
 		@Override
 		public void connectError() {
 			// TODO Auto-generated method stub
-			
+
+			handle.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					DialogUtils.vDialogLoadingDismiss();
+				}
+			});
 		}
 	};
 	
