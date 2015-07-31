@@ -39,6 +39,7 @@ public class ConnectSupport {
 				// TODO Auto-generated method stub
 				try {
 					// defaultHttpClient
+					Log.e("URL_", url);
 					DefaultHttpClient httpClient = new DefaultHttpClient();
 					HttpPost httpPost = new HttpPost(url);
 					Log.e("URL", url);

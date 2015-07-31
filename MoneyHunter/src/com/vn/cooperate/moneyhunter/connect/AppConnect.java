@@ -18,7 +18,7 @@ public class AppConnect {
 	 static String GET_LIST_AD_APP = "http://prosoftforlife.com/moneyhunter/getListAdApp.php";
 
 	 
-	 public static void getListADAPP(int start,int num,ConnectApiListener listener)
+	 public static void getListADAPP(int start,int num,int userId,ConnectApiListener listener)
 	{
 		num = start+num;
 		
@@ -27,6 +27,7 @@ public class AppConnect {
 		List<NameValuePair> param = new ArrayList<NameValuePair>();
 		param.add(cnn.getParam("start", start+""));
 		param.add(cnn.getParam("end", num+""));
+		param.add(cnn.getParam("user_id", userId+""));
 		cnn.getJSONFromUrl(GET_LIST_AD_APP, param, listener);
 	}
 	

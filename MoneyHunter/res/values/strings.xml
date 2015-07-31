@@ -20,6 +20,7 @@
     <!-- ducnm start -->
     <string name="install">Install Now</string>
     <string name="getCoin">Get Coin</string>
+    <string name="processing">Đang xử lý, vui lòng chờ trong giây lát!</string>
     <!-- ducnm end -->
     <!-- Fragment Invite -->
     <string name="invite_code">Mã giới thiệu:</string>
