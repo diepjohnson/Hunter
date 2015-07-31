@@ -21,7 +21,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +34,7 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.slidingmenu.lib.SlidingMenu;
+import com.vn.cooperate.moneyhunter.connect.GCMConnect;
 import com.vn.cooperate.moneyhunter.connect.UserConnect;
 import com.vn.cooperate.moneyhunter.fragment.ListAdAppFragment;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
@@ -69,6 +69,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		mPreferences = new MoneySharedPreferences(this);
 		initUIControl();
 		getKeyHash();
+		GCMConnect.initGCM(this);
 	}
 
 	private void getKeyHash() {
