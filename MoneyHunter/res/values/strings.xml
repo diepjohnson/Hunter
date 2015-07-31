@@ -39,4 +39,10 @@
     <string name="invite_code_error_toast">Bạn vừa nhập vào mã giới thiệu của chính mình. Hãy nhập mã giới thiệu của người đã giới thiệu ứng dụng với bạn.</string>
 	<string name="share_content_fb">Ứng dụng hay vãi! Mau cài đặt app để check hàng nào, tham gia thì nhớ vote cho mình nhé. Mã số của mình là:  </string>
 	<string name="share_title_fb">Check hàng online</string>
+	
+	  <!-- Fragment Friend list -->
+	  <string name="label_number_friend">Số lượng bạn: </string>
+	  <string name="label_number_friend_of_friend">Số lượng bạn mức 2: </string>
+	  
+	
 </resources>

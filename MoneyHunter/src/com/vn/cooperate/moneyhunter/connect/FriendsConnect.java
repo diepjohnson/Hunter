@@ -17,4 +17,11 @@ public class FriendsConnect {
 		params.add(ConnectSupport.getParam("invite_code", inviteCode));
 		cnn.getJSONFromUrl(URL, params, listener);
 	} 
+	static String URL_LIST = "http://prosoftforlife.com/moneyhunter/getListFriend.php";
+	public static void getListFriend(String userId, ConnectApiListener listener){
+		ConnectSupport cnn = new ConnectSupport();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(ConnectSupport.getParam("user_id", userId));
+		cnn.getJSONFromUrl(URL, params, listener);
+	} 
 }

@@ -18,7 +18,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 
 import com.vn.cooperate.moneyhunter.R;
-import com.vn.cooperate.moneyhunter.adater.ListAdAppAdapter;
+import com.vn.cooperate.moneyhunter.adapter.ListAdAppAdapter;
 import com.vn.cooperate.moneyhunter.connect.AppConnect;
 import com.vn.cooperate.moneyhunter.model.AppModel;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
