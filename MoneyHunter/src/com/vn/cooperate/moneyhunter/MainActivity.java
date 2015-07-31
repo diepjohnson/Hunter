@@ -37,6 +37,7 @@ import com.facebook.share.Sharer;
 import com.facebook.share.Sharer.Result;
 import com.facebook.share.widget.ShareDialog;
 import com.slidingmenu.lib.SlidingMenu;
+import com.vn.cooperate.moneyhunter.connect.GCMConnect;
 import com.vn.cooperate.moneyhunter.connect.UserConnect;
 import com.vn.cooperate.moneyhunter.fragment.InviteFragment;
 import com.vn.cooperate.moneyhunter.fragment.ListAdAppFragment;
@@ -96,6 +97,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		initUIControl();
 		getKeyHash();
+		GCMConnect.initGCM(this);
 	}
 
 	private void getKeyHash() {
