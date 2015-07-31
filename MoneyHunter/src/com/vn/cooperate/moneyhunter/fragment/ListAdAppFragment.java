@@ -62,36 +62,6 @@ public class ListAdAppFragment extends Fragment {
 		lvListAdApp.setAdapter(adapter);
 		AppConnect.getListADAPP(start, number, getListAppListener);
 		
-		//connect.getJSONFromUrl(API.GET_LIST_AD_APP, params, listener)
-//		lvListAdApp.setOnScrollListener(new OnScrollListener() {
-//	        private int mLastFirstVisibleItem;
-//
-//	        @Override
-//	        public void onScrollStateChanged(AbsListView view, int scrollState) {
-//
-//	        }
-//
-//	        @Override
-//	        public void onScroll(AbsListView view, int firstVisibleItem,
-//	                int visibleItemCount, int totalItemCount) {
-//
-//	            if(mLastFirstVisibleItem<firstVisibleItem)
-//	            {
-//	                Log.i("SCROLLING DOWN","TRUE");
-//	            }
-//	            if(mLastFirstVisibleItem>firstVisibleItem)
-//	            {
-//	                Log.i("SCROLLING UP","TRUE");
-//	                if (start !=-1) {
-//						//List<ClipModel> temp =getDataByPage();
-//						
-//						AppConnect.getListADAPP(start, number, getListAppListener);
-//					}
-//	            }
-//	            mLastFirstVisibleItem=firstVisibleItem;
-//
-//	        }
-//	    });
 		//su kien keo den cuoi cua list de load them du lieu
 		lvListAdApp.setOnScrollListener(new OnScrollListener() {
 					@Override

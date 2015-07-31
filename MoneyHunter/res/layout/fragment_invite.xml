@@ -26,23 +26,27 @@
         android:id="@+id/tv_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_label_code" />
+        android:layout_below="@id/tv_label_code"
+        android:layout_marginBottom="15dp" />
 
     <TextView
         android:id="@+id/tv_label_type_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_description"
+        android:layout_marginTop="15dp"
         android:text="@string/label_type_code"
         android:textStyle="bold" />
 
     <EditText
         android:id="@+id/edt_invite_code"
+        style="@android:style/Widget.EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/tv_label_type_code"
         android:layout_below="@id/tv_description"
         android:layout_margin="5dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/tv_label_type_code"
         android:inputType="text" />
 
@@ -120,7 +124,8 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
-      <LinearLayout
+
+    <LinearLayout
         android:id="@+id/ln_share2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

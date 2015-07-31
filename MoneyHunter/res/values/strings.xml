@@ -24,16 +24,19 @@
     <!-- Fragment Invite -->
     <string name="invite_code">Mã giới thiệu:</string>
     <string name="label_type_code">Nhập mã giới thiệu:</string>
-    <string name="desscription">Gửi mã này cho bạn bè để nhập vào ô </string>
-    <string name="type_invite_code">Nhập mã giới thiệu để nhận</string>
-    <string name="invite_benefit">xu với mỗi người bạn.</string>
+    <string name="description">Gửi mã này cho bạn bè để nhập vào ô </string>
+    <string name="type_invite_code">Nhập mã giới thiệu </string>
+    <string name="invite_to">để nhận </string>
+    <string name="invite_benefit"> xu với mỗi người bạn.</string>
     <string name="invite_income">1000</string>
     <string name="btn_submit">Xác nhận</string>
     <string name="invite_annotation">Mỗi tài khoản chỉ nhập được mã xác nhận 1 lần</string>
     <string name="label_share">CHIA SẺ APP VỚI BẠN BÈ </string>
     <string name="share_via_email">EMAIL</string>
     <string name="share_via_sms">SMS</string>
-     <string name="share_via_gplus">GOOGLE+</string>
-      <string name="share_via_fb">FACEBOOK</string>
-
+    <string name="share_via_gplus">GOOGLE+</string>
+    <string name="share_via_fb">FACEBOOK</string>
+    <string name="invite_code_error_toast">Bạn vừa nhập vào mã giới thiệu của chính mình. Hãy nhập mã giới thiệu của người đã giới thiệu ứng dụng với bạn.</string>
+	<string name="share_content_fb">Ứng dụng hay vãi! Mau cài đặt app để check hàng nào, tham gia thì nhớ vote cho mình nhé. Mã số của mình là:  </string>
+	<string name="share_title_fb">Check hàng online</string>
 </resources>

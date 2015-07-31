@@ -21,7 +21,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +33,12 @@ import com.facebook.GraphRequest.GraphJSONObjectCallback;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.facebook.share.Sharer;
+import com.facebook.share.Sharer.Result;
+import com.facebook.share.widget.ShareDialog;
 import com.slidingmenu.lib.SlidingMenu;
 import com.vn.cooperate.moneyhunter.connect.UserConnect;
+import com.vn.cooperate.moneyhunter.fragment.InviteFragment;
 import com.vn.cooperate.moneyhunter.fragment.ListAdAppFragment;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
 import com.vn.cooperate.moneyhunter.util.MoneySharedPreferences;
@@ -54,9 +57,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private TextView tvGuide;
 	private TextView tvSetting;
 	private TextView tvContacts;
-
 	private LoginButton btnLogin;
 	private CallbackManager managerCallback;
+	private ShareDialog dialog;
 	private Handler handler;
 	private MoneySharedPreferences mPreferences;
 
@@ -67,6 +70,30 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		setContentView(R.layout.activity_main);
 		managerCallback = CallbackManager.Factory.create();
 		mPreferences = new MoneySharedPreferences(this);
+		dialog = new ShareDialog(this);
+		dialog.registerCallback(managerCallback,
+				new FacebookCallback<Sharer.Result>() {
+
+					@Override
+					public void onSuccess(Result result) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onError(FacebookException error) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onCancel() {
+						// TODO Auto-generated method stub
+						
+					}
+
+				});
+
 		initUIControl();
 		getKeyHash();
 	}
@@ -99,6 +126,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		imgMenu.setOnClickListener(this);
 		tvMonetize = (TextView) findViewById(R.id.menu_download);
 		tvMonetize.setOnClickListener(this);
+		tvInvite = (TextView) findViewById(R.id.menu_invite);
+		tvInvite.setOnClickListener(this);
 		btnLogin = (LoginButton) findViewById(R.id.login_button);
 		btnLogin.setPublishPermissions("user_friends");// public_profile
 														// //user_status
@@ -218,6 +247,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			Toast.makeText(MainActivity.this, "tai app kiem tien",
 					Toast.LENGTH_SHORT).show();
 			break;
+		case R.id.menu_invite:
+			changeFragment(new InviteFragment(dialog));
+			break;
 
 		default:
 			break;
@@ -261,7 +293,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			returnCode = data.getInt("errorCode");
 			JSONObject user = data.getJSONObject("user");
 			String userId = user.getString("userId");
+			String inviteCode = user.getString("invited_code");
+			String accessToken = user.getString("access_token");
 			mPreferences.setUserID(userId);
+			mPreferences.setInviteCode(inviteCode);
+			mPreferences.setAccessToken(accessToken);
 
 		} catch (JSONException e) {
 			e.printStackTrace();

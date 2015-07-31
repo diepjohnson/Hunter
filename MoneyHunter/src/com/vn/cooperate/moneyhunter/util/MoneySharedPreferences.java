@@ -17,7 +17,7 @@ public class MoneySharedPreferences {
 	}
 
 	public String getUserID(Context context) {
-		return mPreferences.getString("", "");
+		return mPreferences.getString(USER_ID, "");
 	}
 
 	public void setUserID(String userId) {
@@ -27,7 +27,7 @@ public class MoneySharedPreferences {
 	}
 
 	public String getInviteCode(Context context) {
-		return mPreferences.getString("", "");
+		return mPreferences.getString(INVITE_CODE, "");
 	}
 
 	public void setInviteCode(String inviteCode) {
@@ -37,7 +37,7 @@ public class MoneySharedPreferences {
 	}
 
 	public String getAccessToken(Context context) {
-		return mPreferences.getString("", "");
+		return mPreferences.getString(ACCESS_TOKEN, "");
 	}
 
 	public void setAccessToken(String accessToken) {
