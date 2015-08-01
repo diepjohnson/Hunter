@@ -2,6 +2,8 @@ package com.vn.cooperate.moneyhunter.fragment;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
@@ -26,18 +28,24 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 	private GridView grdFriends;
 	private ListFriendsAdapter mAdapter;
 	private ArrayList<FriendModel> listFriends;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		FriendsConnect.getListFriend(new MoneySharedPreferences(getActivity()).getUserID(getActivity()), listener);
+		FriendsConnect.getListFriend(new MoneySharedPreferences(getActivity())
+				.getUserID(getActivity()), listener);
 	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_friend_list, container, false);
+		View view = inflater.inflate(R.layout.fragment_friend_list, container,
+				false);
 		tvNumberFriend = (TextView) view.findViewById(R.id.number_friend);
-		tvNumberFriend2 = (TextView) view.findViewById(R.id.number_friend_level2);
+		tvNumberFriend2 = (TextView) view
+				.findViewById(R.id.number_friend_level2);
 		grdFriends = (GridView) view.findViewById(R.id.grd_friends);
+		listFriends = new ArrayList<FriendModel>();
 		mAdapter = new ListFriendsAdapter(getActivity(), listFriends);
 		grdFriends.setAdapter(mAdapter);
 		mAdapter.notifyDataSetChanged();
@@ -48,22 +56,41 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 
 	}
+
 	ConnectApiListener listener = new ConnectApiListener() {
-		
+
 		@Override
-		public void connectSucessfull(JSONObject data) {
+		public void connectSucessfull(final JSONObject data) {
+			final int hasFriend = 1;
 			getActivity().runOnUiThread(new Runnable() {
-				
+
 				@Override
 				public void run() {
-					
+					try {
+						if (data.getString("resultCode").equals("" + hasFriend)) {
+
+							JSONArray jArray = data.getJSONArray("listFriend");
+							for (int i = 0; i < jArray.length(); i++) {
+								FriendModel model = new FriendModel();
+								JSONObject objFriend = jArray.getJSONObject(i);
+								model.setAvatar(objFriend.getString("avatar"));
+								model.setDisplayName(objFriend.getString("name"));
+								model.setId(objFriend.getString("friendId"));
+								model.setNumberFriend(objFriend.getString("numOfFriend"));
+								listFriends.add(model);
+							}
+							mAdapter.notifyDataSetChanged();
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
 				}
 			});
 		}
-		
+
 		@Override
 		public void connectError() {
-			
+
 		}
 	};
 }

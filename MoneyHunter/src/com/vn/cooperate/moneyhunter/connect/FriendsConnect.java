@@ -22,6 +22,6 @@ public class FriendsConnect {
 		ConnectSupport cnn = new ConnectSupport();
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(ConnectSupport.getParam("user_id", userId));
-		cnn.getJSONFromUrl(URL, params, listener);
+		cnn.getJSONFromUrl(URL_LIST, params, listener);
 	} 
 }

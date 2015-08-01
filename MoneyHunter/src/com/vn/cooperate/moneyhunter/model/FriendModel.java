@@ -9,7 +9,7 @@ public class FriendModel {
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
 	}
-	public int numberFriend;
+	public String numberFriend;
 	public String avatar;
 	public String getId() {
 		return id;
@@ -17,10 +17,10 @@ public class FriendModel {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public int getNumberFriend() {
+	public String getNumberFriend() {
 		return numberFriend;
 	}
-	public void setNumberFriend(int numberFriend) {
+	public void setNumberFriend(String numberFriend) {
 		this.numberFriend = numberFriend;
 	}
 	public String getAvatar() {

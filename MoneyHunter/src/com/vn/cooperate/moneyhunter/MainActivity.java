@@ -39,6 +39,7 @@ import com.facebook.share.widget.ShareDialog;
 import com.slidingmenu.lib.SlidingMenu;
 import com.vn.cooperate.moneyhunter.connect.GCMConnect;
 import com.vn.cooperate.moneyhunter.connect.UserConnect;
+import com.vn.cooperate.moneyhunter.fragment.FriendsFragment;
 import com.vn.cooperate.moneyhunter.fragment.InviteFragment;
 import com.vn.cooperate.moneyhunter.fragment.ListAdAppFragment;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
@@ -90,7 +91,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					@Override
 					public void onCancel() {
 						// TODO Auto-generated method stub
-						
+
 					}
 
 				});
@@ -130,6 +131,22 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		tvMonetize.setOnClickListener(this);
 		tvInvite = (TextView) findViewById(R.id.menu_invite);
 		tvInvite.setOnClickListener(this);
+		tvFriends = (TextView) findViewById(R.id.menu_friend_list);
+		tvFriends.setOnClickListener(this);
+		tvExchange = (TextView)findViewById(R.id.menu_exchange);
+		tvGuide = (TextView) findViewById(R.id.menu_usage_guide);
+		tvLucky = (TextView) findViewById(R.id.menu_lucky);
+		tvStatistic = (TextView) findViewById(R.id.menu_statistic);
+		tvTerms = (TextView) findViewById(R.id.menu_term_policy);
+		tvSetting = (TextView) findViewById(R.id.menu_setting);
+		tvContacts = (TextView) findViewById(R.id.menu_contacts);
+		tvContacts.setOnClickListener(this);
+		tvExchange.setOnClickListener(this);
+		tvGuide.setOnClickListener(this);
+		tvLucky.setOnClickListener(this);
+		tvSetting.setOnClickListener(this);
+		tvStatistic.setOnClickListener(this);
+		tvTerms.setOnClickListener(this);
 		btnLogin = (LoginButton) findViewById(R.id.login_button);
 		btnLogin.setPublishPermissions("user_friends");// public_profile
 														// //user_status
@@ -246,13 +263,17 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			}
 			break;
 		case R.id.menu_download:
-			Toast.makeText(MainActivity.this, "tai app kiem tien",
-					Toast.LENGTH_SHORT).show();
+			changeFragment(new ListAdAppFragment());
+			slideMenu.showAbove();
 			break;
 		case R.id.menu_invite:
 			changeFragment(new InviteFragment(dialog));
+			slideMenu.showAbove();
 			break;
-
+		case R.id.menu_friend_list:
+			changeFragment(new FriendsFragment());
+			slideMenu.showAbove();
+			break;
 		default:
 			break;
 		}
