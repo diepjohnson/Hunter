@@ -44,6 +44,7 @@ import com.vn.cooperate.moneyhunter.fragment.InviteFragment;
 import com.vn.cooperate.moneyhunter.fragment.ListAdAppFragment;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
 import com.vn.cooperate.moneyhunter.util.MoneySharedPreferences;
+import com.vn.cooperate.moneyhunter.util.Util;
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
 	private SlidingMenu slideMenu;
@@ -70,6 +71,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		FacebookSdk.sdkInitialize(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		String test = Util.encryptString("heheehhihihi");
+		Log.e("*********test", "_________1"+test+"1_____________");
 		managerCallback = CallbackManager.Factory.create();
 		mPreferences = new MoneySharedPreferences(this);
 		dialog = new ShareDialog(this);
