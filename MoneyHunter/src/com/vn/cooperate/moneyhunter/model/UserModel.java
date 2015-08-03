@@ -1,5 +1,7 @@
 package com.vn.cooperate.moneyhunter.model;
 
+import com.vn.cooperate.moneyhunter.util.MoneySharedPreferences;
+
 import android.content.Context;
 
 public class UserModel {
@@ -52,15 +54,16 @@ public class UserModel {
 	public void setVipLevel(int vipLevel) {
 		this.vipLevel = vipLevel;
 	}
-	public UserModel getUserInfor(Context context){
+	public static UserModel getUserInfor(Context context){
 		UserModel model = new UserModel();
-		model.setAccessToken(this.accessToken);
-		model.setAvatar(this.avatar);
-		model.setDisplayName(this.displayName);
-		model.setInviteCode(this.inviteCode);
-		model.setVipLevel(this.vipLevel);
-		model.setUserId(this.userId);
-		model.setuCoin(this.uCoin);
+		MoneySharedPreferences moneySharedPreferences = new MoneySharedPreferences(context);
+		model.setAccessToken(moneySharedPreferences.getAccessToken(context));
+		model.setAvatar("");
+		model.setDisplayName("");
+		model.setInviteCode(moneySharedPreferences.getInviteCode(context));
+		model.setVipLevel(0);
+		model.setUserId(moneySharedPreferences.getUserID(context));
+		model.setuCoin(0);
 		return model;
 		
 	} 

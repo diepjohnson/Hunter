@@ -3,16 +3,20 @@ package com.vn.cooperate.moneyhunter.adapter;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
+import com.vn.cooperate.moneyhunter.MoneyHunterApplication;
 import com.vn.cooperate.moneyhunter.R;
 import com.vn.cooperate.moneyhunter.model.FriendModel;
 
@@ -58,7 +62,8 @@ public class ListFriendsAdapter extends BaseAdapter {
 					.findViewById(R.id.tv_display_name);
 			holder.tvNumber = (TextView) convertView
 					.findViewById(R.id.tv_number_friend);
-			holder.rlParent = (RelativeLayout) convertView.findViewById(R.id.rl_parent);
+			holder.rlParent = (RelativeLayout) convertView
+					.findViewById(R.id.rl_parent);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -69,11 +74,29 @@ public class ListFriendsAdapter extends BaseAdapter {
 				0, 1);
 		holder.tvName.setText(listFriends.get(position).getDisplayName());
 		holder.tvNumber.setText(listFriends.get(position).getNumberFriend());
+		GridView.LayoutParams params = new GridView.LayoutParams(
+				(int) (MoneyHunterApplication.getWithScreen() / (2.2)),
+				(int) (MoneyHunterApplication.getHeightScreen() / (3.5)));
+		Log.e("Screen dimension",
+				"height: "
+						+ MoneyHunterApplication.getHeightScreen()
+						+ ", width "
+						+ MoneyHunterApplication.getWithScreen()
+						+ " itemheight: "
+						+ ((int) (MoneyHunterApplication.getHeightScreen() / (3.5)))
+						+ "itemWidth: "
+						+ ((int) (MoneyHunterApplication.getWithScreen() / (2.2))));
+		RelativeLayout.LayoutParams rlParams = new LayoutParams(
+				(int) (MoneyHunterApplication.getWithScreen() / (4)),
+				(int) (MoneyHunterApplication.getHeightScreen() / (6)));
+		rlParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		rlParams.setMargins(0, 10, 0, 0);
+		holder.rlParent.setLayoutParams(params);
+		holder.imgAvatar.setLayoutParams(rlParams);
 		holder.rlParent.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				//call detail
 			}
 		});
 

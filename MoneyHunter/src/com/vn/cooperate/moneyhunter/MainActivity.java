@@ -11,6 +11,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -18,8 +19,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,6 +67,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private ShareDialog dialog;
 	private Handler handler;
 	private MoneySharedPreferences mPreferences;
+	private int heightScreen;
+	private int widthScreen;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,33 +77,47 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		setContentView(R.layout.activity_main);
 		managerCallback = CallbackManager.Factory.create();
 		mPreferences = new MoneySharedPreferences(this);
+		saveDimensionScreen();
+		setUpFBShare();
+
+		initUIControl();
+		getKeyHash();
+		GCMConnect.initGCM(this);
+	}
+
+	private void setUpFBShare() {
 		dialog = new ShareDialog(this);
 		dialog.registerCallback(managerCallback,
 				new FacebookCallback<Sharer.Result>() {
 
 					@Override
 					public void onSuccess(Result result) {
-						// TODO Auto-generated method stub
 
 					}
 
 					@Override
 					public void onError(FacebookException error) {
-						// TODO Auto-generated method stub
 
 					}
 
 					@Override
 					public void onCancel() {
-						// TODO Auto-generated method stub
 
 					}
 
 				});
+		
+	}
 
-		initUIControl();
-		getKeyHash();
-		GCMConnect.initGCM(this);
+	private void saveDimensionScreen() {
+		Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+		Point point = new Point();
+		display.getSize(point);
+		heightScreen = point.y;
+		widthScreen = point.x;
+		MoneyHunterApplication.setHeightScreen(heightScreen);
+		MoneyHunterApplication.setWithScreen(widthScreen);
+		
 	}
 
 	private void getKeyHash() {

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.vn.cooperate.moneyhunter.MoneyHunterApplication;
 import com.vn.cooperate.moneyhunter.R;
 import com.vn.cooperate.moneyhunter.adapter.ListFriendsAdapter;
 import com.vn.cooperate.moneyhunter.connect.FriendsConnect;
@@ -32,8 +33,9 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		FriendsConnect.getListFriend(new MoneySharedPreferences(getActivity())
-				.getUserID(getActivity()), listener);
+//		FriendsConnect.getListFriend(new MoneySharedPreferences(getActivity())
+//				.getUserID(getActivity()), listener);
+		FriendsConnect.getListFriend("14", listener);
 	}
 
 	@Override

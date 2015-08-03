@@ -6,6 +6,25 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.BitmapAjaxCallback;
 
 public class MoneyHunterApplication extends Application{
+	public static int withScreen;
+	public static int heightScreen;
+	
+
+	public static int getWithScreen() {
+		return withScreen;
+	}
+
+	public static void setWithScreen(int withScreen) {
+		MoneyHunterApplication.withScreen = withScreen;
+	}
+
+	public static int getHeightScreen() {
+		return heightScreen;
+	}
+
+	public static void setHeightScreen(int heightScreen) {
+		MoneyHunterApplication.heightScreen = heightScreen;
+	}
 
 	@Override
 	public void onCreate() {
