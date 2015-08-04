@@ -45,6 +45,7 @@ import com.vn.cooperate.moneyhunter.connect.UserConnect;
 import com.vn.cooperate.moneyhunter.fragment.FriendsFragment;
 import com.vn.cooperate.moneyhunter.fragment.InviteFragment;
 import com.vn.cooperate.moneyhunter.fragment.ListAdAppFragment;
+import com.vn.cooperate.moneyhunter.model.UserModel;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
 import com.vn.cooperate.moneyhunter.util.MoneySharedPreferences;
 import com.vn.cooperate.moneyhunter.util.Util;
@@ -76,9 +77,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		FacebookSdk.sdkInitialize(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		String test = Util.encryptString("heheehhihihi");
-		Log.e("*********test", "_________1"+test+"1_____________");
 		managerCallback = CallbackManager.Factory.create();
 		mPreferences = new MoneySharedPreferences(this);
 		saveDimensionScreen();
@@ -199,15 +197,22 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 													.getString("name");
 											final String facebookId = object
 													.getString("id");
-											final String email = object
-													.getString("email");
+											String emailTemp ="";
+											try {
+												emailTemp = object
+														.getString("email");
+											} catch (Exception e) {
+												// TODO: handle exception
+											}
+											
+											final String email = emailTemp;
 											handler.post(new Runnable() {
 
 												@Override
 												public void run() {
 													UserConnect.logon(name,
 															email, facebookId,
-															"a1b2c3d4", 1,
+															"a1b2c344d4", 1,
 															logonListener);
 
 												}
@@ -290,6 +295,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			slideMenu.showAbove();
 			break;
 		case R.id.menu_invite:
+			String test = Util.encryptString("heheehhihihi",this);
 			changeFragment(new InviteFragment(dialog));
 			slideMenu.showAbove();
 			break;
@@ -337,6 +343,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		int returnCode = -1;
 		try {
 			returnCode = data.getInt("errorCode");
+			Log.e("login response", data.toString());
 			JSONObject user = data.getJSONObject("user");
 			String userId = user.getString("userId");
 			String inviteCode = user.getString("invited_code");

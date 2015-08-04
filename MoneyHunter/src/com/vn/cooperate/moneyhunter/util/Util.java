@@ -9,6 +9,7 @@ import java.util.Random;
 
 import com.vn.cooperate.moneyhunter.model.UserModel;
 
+import android.content.Context;
 import android.util.Log;
 
 public class Util {
@@ -31,7 +32,7 @@ public class Util {
         }
     }
 	
-    public static String encryptString(String str) {
+    public static String encryptString(String str,Context mContext) {
     	key="";
 		StringBuffer sb = new StringBuffer(str);
 		try {
@@ -44,14 +45,14 @@ public class Util {
 			
 			int lenStr = str.length();
 			int lenKey = key.length();
-			UserModel user = new UserModel();
-			user.setAccessToken("asasasashgjhnhjhnjhnhjnhjklioh");
+			UserModel user = UserModel.getUserInfor(mContext);
+			Log.e("**accesstoken______", user.getAccessToken());
 			int randomeKey = randomNumberLower(1000000,9999999);
 			int flag = randomNumberLower(10, 20);
 			key = getEndString(user.getAccessToken(),key,randomeKey,flag);
 			Log.e("before encrip : *****", key);
 			key = encryptMD5(key);
-			Log.e("encrip : *****", key+" randomeKey : "+randomeKey+"  flag "+flag);
+			Log.e("encrip : *****", key+" randomeKey : "+randomeKey+"  flag "+flag+" userId"+user.getUserId());
 			// For each character in our string, encrypt it...
 //			for (int i = 0, j = 0; i < lenStr; i++, j++) {
 //				if (j >= lenKey)
