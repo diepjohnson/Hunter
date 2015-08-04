@@ -1,9 +1,11 @@
 package com.vn.cooperate.moneyhunter;
 
 import android.app.Application;
+import android.provider.Settings.Secure;
 
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.BitmapAjaxCallback;
+import com.vn.cooperate.moneyhunter.util.MoneySharedPreferences;
 
 public class MoneyHunterApplication extends Application{
 	public static int withScreen;
@@ -29,7 +31,9 @@ public class MoneyHunterApplication extends Application{
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
-		
+		String   myAndroidDeviceId = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
+		MoneySharedPreferences mPreferences = new MoneySharedPreferences(MoneyHunterApplication.this);
+		mPreferences.setDeviceID(myAndroidDeviceId);
 		AjaxCallback.setNetworkLimit(8);
 		  BitmapAjaxCallback.setIconCacheLimit(40);
 		  BitmapAjaxCallback.setCacheLimit(40);
