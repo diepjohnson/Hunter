@@ -31,9 +31,6 @@ public class MoneyHunterApplication extends Application{
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
-		String   myAndroidDeviceId = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
-		MoneySharedPreferences mPreferences = new MoneySharedPreferences(MoneyHunterApplication.this);
-		mPreferences.setDeviceID(myAndroidDeviceId);
 		AjaxCallback.setNetworkLimit(8);
 		  BitmapAjaxCallback.setIconCacheLimit(40);
 		  BitmapAjaxCallback.setCacheLimit(40);

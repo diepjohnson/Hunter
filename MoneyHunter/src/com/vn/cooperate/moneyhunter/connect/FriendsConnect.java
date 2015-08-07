@@ -24,4 +24,12 @@ public class FriendsConnect {
 		params.add(ConnectSupport.getParam("user_id", userId));
 		cnn.getJSONFromUrl(URL_LIST, params, listener);
 	} 
+	static String URL_DETAIL = "http://prosoftforlife.com/moneyhunter/getFriendInfo.php";
+	public static void getFriendinfo(String userId, String friendId, ConnectApiListener listener){
+		ConnectSupport cnn = new ConnectSupport();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(ConnectSupport.getParam("userId", userId));
+		params.add(ConnectSupport.getParam("friendId", friendId));
+		cnn.getJSONFromUrl(URL_DETAIL, params, listener);
+	}
 }

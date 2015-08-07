@@ -6,15 +6,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.vn.cooperate.moneyhunter.MainActivity;
 import com.vn.cooperate.moneyhunter.MoneyHunterApplication;
 import com.vn.cooperate.moneyhunter.R;
 import com.vn.cooperate.moneyhunter.adapter.ListFriendsAdapter;
@@ -29,12 +33,21 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 	private GridView grdFriends;
 	private ListFriendsAdapter mAdapter;
 	private ArrayList<FriendModel> listFriends;
+	private MainActivity homeActivity;
+
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		homeActivity = (MainActivity)activity;
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		FriendsConnect.getListFriend(new MoneySharedPreferences(getActivity())
-//				.getUserID(getActivity()), listener);
+		// FriendsConnect.getListFriend(new
+		// MoneySharedPreferences(getActivity())
+		// .getUserID(getActivity()), listener);
 		FriendsConnect.getListFriend("14", listener);
 	}
 
@@ -51,6 +64,19 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 		mAdapter = new ListFriendsAdapter(getActivity(), listFriends);
 		grdFriends.setAdapter(mAdapter);
 		mAdapter.notifyDataSetChanged();
+		grdFriends.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+				FriendModel model = new FriendModel();
+				model = listFriends.get(position);
+				String userId = new MoneySharedPreferences(getActivity()).getUserID(getActivity());
+				String  friendId = model.getId();
+				String avatar = model.getAvatar();
+				homeActivity.changeFragment(new DetailFriendFragment(userId, friendId, avatar));
+			}
+		});
 		return view;
 	}
 
@@ -70,15 +96,21 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 				public void run() {
 					try {
 						if (data.getString("resultCode").equals("" + hasFriend)) {
-
+							tvNumberFriend.setText(data
+									.getString("numOfFriend"));
+							tvNumberFriend2.setText(data
+									.getString("numOfSecondFriend"));
 							JSONArray jArray = data.getJSONArray("listFriend");
 							for (int i = 0; i < jArray.length(); i++) {
 								FriendModel model = new FriendModel();
 								JSONObject objFriend = jArray.getJSONObject(i);
-								model.setAvatar(objFriend.getString("avatar"));
-								model.setDisplayName(objFriend.getString("name"));
 								model.setId(objFriend.getString("friendId"));
-								model.setNumberFriend(objFriend.getString("numOfFriend"));
+								model.setAvatar(objFriend.getString("avatar"));
+								model.setDisplayName(objFriend
+										.getString("name"));
+								model.setId(objFriend.getString("friendId"));
+								model.setNumberFriend(objFriend
+										.getString("numOfFriend"));
 								listFriends.add(model);
 							}
 							mAdapter.notifyDataSetChanged();

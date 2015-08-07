@@ -87,7 +87,12 @@ public class ConnectSupport {
 					return;
 				}
 
-				listener.connectSucessfull(jObj);
+				try {
+					listener.connectSucessfull(jObj);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		t.start();

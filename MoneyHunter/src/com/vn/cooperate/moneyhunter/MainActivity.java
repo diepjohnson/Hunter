@@ -14,6 +14,7 @@ import android.content.pm.Signature;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings.Secure;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -45,7 +46,6 @@ import com.vn.cooperate.moneyhunter.connect.UserConnect;
 import com.vn.cooperate.moneyhunter.fragment.FriendsFragment;
 import com.vn.cooperate.moneyhunter.fragment.InviteFragment;
 import com.vn.cooperate.moneyhunter.fragment.ListAdAppFragment;
-import com.vn.cooperate.moneyhunter.model.UserModel;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
 import com.vn.cooperate.moneyhunter.util.MoneySharedPreferences;
 import com.vn.cooperate.moneyhunter.util.Util;
@@ -79,7 +79,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		setContentView(R.layout.activity_main);
 		managerCallback = CallbackManager.Factory.create();
 		mPreferences = new MoneySharedPreferences(this);
-		saveDimensionScreen();
+		saveDimensionScreenandDeviceID();
 		setUpFBShare();
 
 		initUIControl();
@@ -111,7 +111,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		
 	}
 
-	private void saveDimensionScreen() {
+	private void saveDimensionScreenandDeviceID() {
 		Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 		Point point = new Point();
 		display.getSize(point);
@@ -119,6 +119,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		widthScreen = point.x;
 		MoneyHunterApplication.setHeightScreen(heightScreen);
 		MoneyHunterApplication.setWithScreen(widthScreen);
+		String   myAndroidDeviceId = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
+		mPreferences = new MoneySharedPreferences(MainActivity.this);
+		mPreferences.setDeviceID(myAndroidDeviceId);
 		
 	}
 
@@ -212,7 +215,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 												public void run() {
 													UserConnect.logon(name,
 															email, facebookId,
-															"a1b2c344d4", 1,
+															mPreferences.getDeviceID(MainActivity.this), 1,
 															logonListener);
 
 												}
