@@ -7,6 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
+import com.vn.cooperate.moneyhunter.model.EncryptDataModel;
 import com.vn.cooperate.moneyhunter.model.UserModel;
 
 import android.content.Context;
@@ -32,9 +33,14 @@ public class Util {
         }
     }
 	
-    public static String encryptString(String str,Context mContext) {
+	public static int getIdByName(String name, Context mContext) {
+		return mContext.getResources().getIdentifier(name,"id", mContext.getPackageName());
+	}
+
+    public static EncryptDataModel encryptString(Context mContext) {
+    	EncryptDataModel data = new EncryptDataModel();
     	key="";
-		StringBuffer sb = new StringBuffer(str);
+		
 		try {
 			if(key.equals(""))
 			{
@@ -43,16 +49,22 @@ public class Util {
 			}
 			}
 			
-			int lenStr = str.length();
-			int lenKey = key.length();
+		
 			UserModel user = UserModel.getUserInfor(mContext);
 			Log.e("**accesstoken______", user.getAccessToken());
 			int randomeKey = randomNumberLower(1000000,9999999);
+			
 			int flag = randomNumberLower(10, 20);
+			data.setRandKey(randomeKey);
+			data.setFlag(flag);
+			data.setUserId(Integer.parseInt(user.getUserId()));
+			
 			key = getEndString(user.getAccessToken(),key,randomeKey,flag);
-			Log.e("before encrip : *****", key);
+			
 			key = encryptMD5(key);
-			Log.e("encrip : *****", key+" randomeKey : "+randomeKey+"  flag "+flag+" userId"+user.getUserId());
+			//Log.e("encrip : *****", key+" randomeKey : "+randomeKey+"  flag "+flag+" userId"+user.getUserId());
+			
+			data.setEncryptData(key);
 			// For each character in our string, encrypt it...
 //			for (int i = 0, j = 0; i < lenStr; i++, j++) {
 //				if (j >= lenKey)
@@ -70,7 +82,7 @@ public class Util {
 			  key="";
 		}
 		
-		return sb.toString();
+		return data;
 	}
     static int randomNumberLower(int from,int end)
     {

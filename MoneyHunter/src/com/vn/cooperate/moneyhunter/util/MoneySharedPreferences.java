@@ -56,4 +56,21 @@ public class MoneySharedPreferences {
 		editor.commit();
 	}
 
+	public void setLuckyCardData(int coin, int cardNumber) {
+		Editor editor = mPreferences.edit();
+		editor.putInt("card" + cardNumber, coin);
+		editor.commit();
+	}
+	public void setSelectedCard(int cardNumber) {
+		Editor editor = mPreferences.edit();
+		editor.putInt("selectedCard", cardNumber);
+		editor.commit();
+	}
+	public int getSelectedCard()
+	{
+		return mPreferences.getInt("selectedCard", 0);
+	}
+	public int getLuckyCardData(int cardNumber) {
+		return mPreferences.getInt("card" + cardNumber, 0);
+	}
 }

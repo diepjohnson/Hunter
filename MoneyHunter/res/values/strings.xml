@@ -19,6 +19,10 @@
     <string name="facebook_app_id">840614236033853</string>
     <!-- ducnm start -->
     <string name="install">Install Now</string>
+    <string name="unLucky">Chúc bạn may mắn lần sau!</string>
+     <string name="Lucky">Bạn nhận được </string>
+
+     <string name="luckeyCardText">Mỗi ngày bạn có cơ hội lật bài 1 lần để nhận coin</string>
     <string name="getCoin">Get Coin</string>
     <string name="processing">Đang xử lý, vui lòng chờ trong giây lát!</string>
     <!-- ducnm end -->
