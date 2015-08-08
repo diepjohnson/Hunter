@@ -9,8 +9,9 @@
 
     <color name="deviderColor">#d5d5d5</color>
     <color name="orange">#E89643</color>
+    <color name="yellow">#FFE88D</color>
     <color name="grey">#8585AD</color>
     <color name="white">#FFFFFF</color>
     <color name="green">#91c255</color>
-    
+    <color name="dimRed">#FF6666</color>
 </resources>
