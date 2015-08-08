@@ -93,12 +93,6 @@ public class ListFriendsAdapter extends BaseAdapter {
 		rlParams.setMargins(0, 10, 0, 0);
 		holder.rlParent.setLayoutParams(params);
 		holder.imgAvatar.setLayoutParams(rlParams);
-		holder.rlParent.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-			}
-		});
 
 		return convertView;
 	}

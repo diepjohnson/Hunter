@@ -10,12 +10,22 @@ public class MoneySharedPreferences {
 	public static final String USER_ID = "UID";
 	public static final String INVITE_CODE = "ICODE";
 	public static final String ACCESS_TOKEN = "ATOKEN";
+	public static final String DEV_ID = "DEVID";
 
 	public MoneySharedPreferences(Context context) {
 		mPreferences = context.getSharedPreferences(APP_NAME,
 				Context.MODE_PRIVATE);
 	}
 
+	public String getDeviceID(Context context) {
+		return mPreferences.getString(DEV_ID, "");
+	}
+
+	public void setDeviceID(String dev_id) {
+		Editor editor = mPreferences.edit();
+		editor.putString(DEV_ID, dev_id);
+		editor.commit();
+	}
 	public String getUserID(Context context) {
 		return mPreferences.getString(USER_ID, "");
 	}

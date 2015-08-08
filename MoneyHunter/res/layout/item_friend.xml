@@ -3,7 +3,7 @@
     android:id="@+id/rl_parent"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/grid_item"
+    android:descendantFocusability="blocksDescendants"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingTop="10dp" >
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/app_name"
+        android:focusable="false"
         android:scaleType="fitXY" />
 
     <TextView
@@ -23,6 +24,7 @@
         android:layout_below="@id/img_avatar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
+        android:focusable="false"
         android:lines="1"
         android:text="@string/app_name"
         android:textColor="@color/orange"
@@ -35,6 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_display_name"
         android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/icon_friends"
+        android:focusable="false"
+        android:gravity="center_vertical"
         android:text="@string/app_name"
         android:textSize="12sp" />
 
