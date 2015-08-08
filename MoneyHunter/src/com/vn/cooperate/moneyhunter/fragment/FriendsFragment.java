@@ -74,7 +74,8 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 				String userId = new MoneySharedPreferences(getActivity()).getUserID(getActivity());
 				String  friendId = model.getId();
 				String avatar = model.getAvatar();
-				homeActivity.changeFragment(new DetailFriendFragment(userId, friendId, avatar));
+				String createDate = model.getCreateDate();
+				homeActivity.changeFragment(new DetailFriendFragment(userId, friendId, avatar,createDate));
 			}
 		});
 		return view;
@@ -109,6 +110,7 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 								model.setDisplayName(objFriend
 										.getString("name"));
 								model.setId(objFriend.getString("friendId"));
+								model.setCreateDate(objFriend.getString("createdDate"));
 								model.setNumberFriend(objFriend
 										.getString("numOfFriend"));
 								listFriends.add(model);
