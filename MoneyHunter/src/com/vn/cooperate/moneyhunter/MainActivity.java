@@ -45,6 +45,7 @@ import com.vn.cooperate.moneyhunter.connect.UserConnect;
 import com.vn.cooperate.moneyhunter.fragment.FriendsFragment;
 import com.vn.cooperate.moneyhunter.fragment.InviteFragment;
 import com.vn.cooperate.moneyhunter.fragment.ListAdAppFragment;
+import com.vn.cooperate.moneyhunter.fragment.LuckyCardFragment;
 import com.vn.cooperate.moneyhunter.model.UserModel;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
 import com.vn.cooperate.moneyhunter.util.MoneySharedPreferences;
@@ -212,7 +213,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 												public void run() {
 													UserConnect.logon(name,
 															email, facebookId,
-															"a1b2c344d4", 1,
+															"a1b2c8844d4", 1,
 															logonListener);
 
 												}
@@ -295,12 +296,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			slideMenu.showAbove();
 			break;
 		case R.id.menu_invite:
-			String test = Util.encryptString("heheehhihihi",this);
+		
 			changeFragment(new InviteFragment(dialog));
 			slideMenu.showAbove();
 			break;
 		case R.id.menu_friend_list:
 			changeFragment(new FriendsFragment());
+			slideMenu.showAbove();
+			break;
+		case R.id.menu_lucky:
+			changeFragment(new LuckyCardFragment());
 			slideMenu.showAbove();
 			break;
 		default:

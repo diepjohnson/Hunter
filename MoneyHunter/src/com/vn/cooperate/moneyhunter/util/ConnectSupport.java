@@ -15,8 +15,10 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.vn.cooperate.moneyhunter.model.EncryptDataModel;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
 
 public class ConnectSupport {
@@ -30,6 +32,14 @@ public class ConnectSupport {
 
 	}
 
+	public static void addConFirmParam(List<NameValuePair> listParam,Context mContext)
+	{
+		EncryptDataModel data = Util.encryptString(mContext);
+		listParam.add(getParam("user_id", data.getUserId()+""));
+		listParam.add(getParam("rand_number", data.getRandKey()+""));
+		listParam.add(getParam("sercurity_token", data.getEncryptData()));
+		listParam.add(getParam("flag", data.getFlag()+""));
+	}
 	public void getJSONFromUrl(final String url,
 			final List<NameValuePair> params, final ConnectApiListener listener) {
 		Thread t = new Thread(new Runnable() {
