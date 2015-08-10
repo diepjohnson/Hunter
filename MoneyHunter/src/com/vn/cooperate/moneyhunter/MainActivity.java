@@ -60,15 +60,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private SlidingMenu slideMenu;
 	private ImageView imgMenu;
 	private Boolean isShowMenu = false;
-	private TextView tvMonetize,tvExchange,tvInvite,tvFriends,tvStatistic,tvLucky;
-	private TextView tvTerms, tvGuide, tvSetting,tvContacts,tvMessage;
+	private TextView tvMonetize, tvExchange, tvInvite, tvFriends, tvStatistic,
+			tvLucky;
+	private TextView tvTerms, tvGuide, tvSetting, tvContacts, tvMessage;
 	private LinearLayout lnHomeContent;
 	private LoginButton btnLogin;
 	private CallbackManager managerCallback;
 	private ShareDialog dialog;
 	private Handler handler;
 	private MoneySharedPreferences mPreferences;
- 
+
 	private int heightScreen;
 	private int widthScreen;
 
@@ -85,11 +86,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		initUIControl();
 		getKeyHash();
 		GCMConnect.initGCM(this);
-		if(checkLogIn())
-		{
+		if (checkLogIn()) {
 			addFragment(new ListAdAppFragment());
 		}
-		
+
 	}
 
 	private void setUpFBShare() {
@@ -172,7 +172,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		tvSetting = (TextView) findViewById(R.id.menu_setting);
 		tvMessage = (TextView) findViewById(R.id.tvMessage);
 		tvContacts = (TextView) findViewById(R.id.menu_contacts);
-		lnHomeContent = (LinearLayout)  findViewById(R.id.lnHomeContainer);
+		lnHomeContent = (LinearLayout) findViewById(R.id.lnHomeContainer);
 		tvContacts.setOnClickListener(this);
 		tvExchange.setOnClickListener(this);
 		tvGuide.setOnClickListener(this);
@@ -187,7 +187,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		btnLogin.setPublishPermissions("public_profile");
 		btnLogin.setPublishPermissions("publish_actions");
 		handler = new Handler();
-		
+
 		btnLogin.setOnClickListener(this);
 
 		slideMenu = (SlidingMenu) findViewById(R.id.sliding_menu);
@@ -206,8 +206,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			}
 		});
 
-	
-
 	}
 
 	Fragment curFragment;
@@ -224,22 +222,24 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		}
 
 	}
-	
-	Boolean checkLogIn()
-	{
+
+	boolean checkLogIn() {
+		boolean result;
 		UserModel user = UserModel.getUserInfor(getApplicationContext());
-		if(user.getUserId()!=null&&!user.getUserId().equalsIgnoreCase(""))
-		{
+		if (user.getUserId() != null && !user.getUserId().equalsIgnoreCase("")) {
 			lnHomeContent.setVisibility(View.VISIBLE);
-			tvMessage.setVisibility(View.GONE);
 			tvMessage.setText("");
-			
-			return true;
+			tvMessage.setVisibility(View.GONE);
+
+			result = true;
+		} else {
+			lnHomeContent.setVisibility(View.GONE);
+			tvMessage.setText(getString(R.string.unLogin));
+			tvMessage.setVisibility(View.VISIBLE);
+			result = false;
 		}
-		lnHomeContent.setVisibility(View.GONE);
-		tvMessage.setText(getString(R.string.unLogin));
-		tvMessage.setVisibility(View.VISIBLE);
-		return false;
+		return result;
+
 	}
 
 	@Override
@@ -255,11 +255,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			}
 			break;
 		case R.id.menu_download:
-            if(checkLogIn())
-            {
-            	changeFragment(new ListAdAppFragment());
-            }
-			
+			if (checkLogIn()) {
+				changeFragment(new ListAdAppFragment());
+			}
+
 			slideMenu.showAbove();
 			break;
 		case R.id.menu_invite:
@@ -272,19 +271,17 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			slideMenu.showAbove();
 			break;
 		case R.id.menu_friend_list:
-			if(checkLogIn())
-			{
+			if (checkLogIn()) {
 				changeFragment(new FriendsFragment());
 			}
-			
+
 			slideMenu.showAbove();
 			break;
 		case R.id.menu_lucky:
-			if(checkLogIn())
-			{
+			if (checkLogIn()) {
 				changeFragment(new LuckyCardFragment());
 			}
-			
+
 			slideMenu.showAbove();
 			break;
 		case R.id.login_button:
@@ -292,7 +289,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					&& com.facebook.Profile.getCurrentProfile() != null) {
 				LoginManager.getInstance().logOut();
 				mPreferences.clearAll();
-			}else{
+			} else {
 				facebookLogin();
 			}
 			break;
@@ -375,7 +372,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 					}
 				});
-		
+
 	}
 
 	public void addFragment(Fragment fragment) {
@@ -441,6 +438,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				public void run() {
 					Toast.makeText(MainActivity.this, " Login successfuly",
 							Toast.LENGTH_SHORT).show();
+					slideMenu.showAbove();
 				}
 			});
 		}

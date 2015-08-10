@@ -30,22 +30,6 @@
     </RelativeLayout>
     
     
-    <LinearLayout 
-        android:id="@+id/lnMessage"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:background="@color/white"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-          android:layout_below="@+id/rlHeader">
-        
-        <TextView 
-            android:id="@+id/tvMessage"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="ban chua dang nhap"
-            android:gravity="center"/>
-    </LinearLayout>
     
     <com.slidingmenu.lib.SlidingMenu
         android:layout_below="@+id/rlHeader"
