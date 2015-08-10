@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    >
 
      <RelativeLayout
         android:layout_width="fill_parent"
+        android:id="@+id/rlHeader"
+        android:layout_alignParentTop="true"
         android:layout_height="50dp"
         android:background="@color/actionBarBackground" >
 
@@ -27,7 +29,26 @@
             android:textStyle="bold" />
     </RelativeLayout>
     
+    
+    <LinearLayout 
+        android:id="@+id/lnMessage"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+          android:layout_below="@+id/rlHeader">
+        
+        <TextView 
+            android:id="@+id/tvMessage"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="ban chua dang nhap"
+            android:gravity="center"/>
+    </LinearLayout>
+    
     <com.slidingmenu.lib.SlidingMenu
+        android:layout_below="@+id/rlHeader"
         xmlns:sliding="http://schemas.android.com/apk/res-auto"
         android:id="@+id/sliding_menu"
         android:layout_width="match_parent"
@@ -37,4 +58,4 @@
         sliding:viewAbove="@layout/home_content"
         sliding:viewBehind="@layout/home_menu" />
 
-</LinearLayout>
+</RelativeLayout>
