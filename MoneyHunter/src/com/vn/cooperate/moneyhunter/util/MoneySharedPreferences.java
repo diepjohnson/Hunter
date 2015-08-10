@@ -3,6 +3,7 @@ package com.vn.cooperate.moneyhunter.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 
 public class MoneySharedPreferences {
 	private SharedPreferences mPreferences;
@@ -71,6 +72,13 @@ public class MoneySharedPreferences {
 		return mPreferences.getInt("selectedCard", 0);
 	}
 	public int getLuckyCardData(int cardNumber) {
+
 		return mPreferences.getInt("card" + cardNumber, 0);
+	}
+	public void clearAll(){
+		setAccessToken("");
+		setInviteCode("");
+		setUserID("");
+		Log.e("recycleAllData", "Data Cleared");
 	}
 }

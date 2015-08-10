@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -35,6 +36,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphRequest.GraphJSONObjectCallback;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.Sharer;
@@ -112,21 +114,23 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					}
 
 				});
-		
+
 	}
 
 	private void saveDimensionScreenandDeviceID() {
-		Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+		Display display = ((WindowManager) getSystemService(WINDOW_SERVICE))
+				.getDefaultDisplay();
 		Point point = new Point();
 		display.getSize(point);
 		heightScreen = point.y;
 		widthScreen = point.x;
 		MoneyHunterApplication.setHeightScreen(heightScreen);
 		MoneyHunterApplication.setWithScreen(widthScreen);
-		String   myAndroidDeviceId = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
+		String myAndroidDeviceId = Secure.getString(getApplicationContext()
+				.getContentResolver(), Secure.ANDROID_ID);
 		mPreferences = new MoneySharedPreferences(MainActivity.this);
 		mPreferences.setDeviceID(myAndroidDeviceId);
-		
+
 	}
 
 	private void getKeyHash() {
@@ -161,7 +165,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		tvInvite.setOnClickListener(this);
 		tvFriends = (TextView) findViewById(R.id.menu_friend_list);
 		tvFriends.setOnClickListener(this);
-		tvExchange = (TextView)findViewById(R.id.menu_exchange);
+		tvExchange = (TextView) findViewById(R.id.menu_exchange);
 		tvGuide = (TextView) findViewById(R.id.menu_usage_guide);
 		tvLucky = (TextView) findViewById(R.id.menu_lucky);
 		tvStatistic = (TextView) findViewById(R.id.menu_statistic);
@@ -182,75 +186,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		btnLogin.setPublishPermissions("public_profile");
 		btnLogin.setPublishPermissions("publish_actions");
 		handler = new Handler();
-		btnLogin.registerCallback(managerCallback,
-				new FacebookCallback<LoginResult>() {
-
-					@Override
-					public void onSuccess(LoginResult result) {
-						Log.e("USERID", "is "
-								+ result.getAccessToken().getUserId());
-						GraphRequest request = GraphRequest.newMeRequest(
-								result.getAccessToken(),
-								new GraphJSONObjectCallback() {
-
-									@Override
-									public void onCompleted(JSONObject object,
-											GraphResponse response) {
-										Log.d("response",
-												"response" + object.toString());
-
-										try {
-											final String name = object
-													.getString("name");
-											final String facebookId = object
-													.getString("id");
-											String emailTemp ="";
-											try {
-												emailTemp = object
-														.getString("email");
-											} catch (Exception e) {
-												// TODO: handle exception
-											}
-											
-											final String email = emailTemp;
-											handler.post(new Runnable() {
-
-												@Override
-												public void run() {
-													UserConnect.logon(name,
-															email, facebookId,
-
-															mPreferences.getDeviceID(MainActivity.this), 1,
-
-															logonListener);
-
-												}
-											});
-
-										} catch (JSONException e) {
-											e.printStackTrace();
-										}
-
-									}
-								});
-						Bundle parameters = new Bundle();
-						parameters
-								.putString("fields",
-										"id,name,email,gender,birthday,picture.width(300)");
-						request.setParameters(parameters);
-						request.executeAsync();
-					}
-
-					@Override
-					public void onError(FacebookException error) {
-						Log.e("Error", "is " + error.toString());
-					}
-
-					@Override
-					public void onCancel() {
-
-					}
-				});
+		
+		btnLogin.setOnClickListener(this);
 
 		slideMenu = (SlidingMenu) findViewById(R.id.sliding_menu);
 		imgMenu = (ImageView) findViewById(R.id.imgMenu);
@@ -304,7 +241,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			slideMenu.showAbove();
 			break;
 		case R.id.menu_invite:
-		
+
 			changeFragment(new InviteFragment(dialog));
 			slideMenu.showAbove();
 			break;
@@ -316,9 +253,95 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			changeFragment(new LuckyCardFragment());
 			slideMenu.showAbove();
 			break;
+		case R.id.login_button:
+			if (AccessToken.getCurrentAccessToken() != null
+					&& com.facebook.Profile.getCurrentProfile() != null) {
+				LoginManager.getInstance().logOut();
+				mPreferences.clearAll();
+			}else{
+				facebookLogin();
+			}
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void facebookLogin() {
+		btnLogin.registerCallback(managerCallback,
+				new FacebookCallback<LoginResult>() {
+
+					@Override
+					public void onSuccess(LoginResult result) {
+						Log.e("USERID", "is "
+								+ result.getAccessToken().getUserId());
+						GraphRequest request = GraphRequest.newMeRequest(
+								result.getAccessToken(),
+								new GraphJSONObjectCallback() {
+
+									@Override
+									public void onCompleted(JSONObject object,
+											GraphResponse response) {
+										Log.d("response",
+												"response" + object.toString());
+
+										try {
+											final String name = object
+													.getString("name");
+											final String facebookId = object
+													.getString("id");
+											String emailTemp = "";
+											try {
+												emailTemp = object
+														.getString("email");
+											} catch (Exception e) {
+												// TODO: handle exception
+											}
+
+											final String email = emailTemp;
+											handler.post(new Runnable() {
+
+												@Override
+												public void run() {
+													UserConnect.logon(
+															name,
+															email,
+															facebookId,
+
+															mPreferences
+																	.getDeviceID(MainActivity.this),
+															1,
+
+															logonListener);
+
+												}
+											});
+
+										} catch (JSONException e) {
+											e.printStackTrace();
+										}
+
+									}
+								});
+						Bundle parameters = new Bundle();
+						parameters
+								.putString("fields",
+										"id,name,email,gender,birthday,picture.width(300)");
+						request.setParameters(parameters);
+						request.executeAsync();
+					}
+
+					@Override
+					public void onError(FacebookException error) {
+						Log.e("Error", "is " + error.toString());
+					}
+
+					@Override
+					public void onCancel() {
+
+					}
+				});
+		
 	}
 
 	public void addFragment(Fragment fragment) {
