@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 
+import android.content.Context;
+
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
 import com.vn.cooperate.moneyhunter.util.ConnectSupport;
 
@@ -23,12 +25,13 @@ public class UserConnect {
 	} 
 	
 	
-	public static void addCoinToUser(String appId,String userId, ConnectApiListener listener)
+	public static void addCoinToUser(String appId,String userId, ConnectApiListener listener,Context mContext)
 	{
 		ConnectSupport cnn = new ConnectSupport();
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(ConnectSupport.getParam("app_id",appId));
-		params.add(ConnectSupport.getParam("user_id", userId));
+		//params.add(ConnectSupport.getParam("user_id", userId));
+		cnn.addConFirmParam(params, mContext);
 		cnn.getJSONFromUrl(URL, params, listener);
 	}
 	

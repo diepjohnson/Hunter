@@ -19,6 +19,7 @@
     <string name="facebook_app_id">840614236033853</string>
     <!-- ducnm start -->
     <string name="install">Install Now</string>
+    <string name="unLogin">Hiện tại bạn chưa đăng nhập, hãy đăng nhập và bắt đầu săn xu!</string>
     <string name="unLucky">Chúc bạn may mắn lần sau!</string>
      <string name="Lucky">Bạn nhận được </string>
 

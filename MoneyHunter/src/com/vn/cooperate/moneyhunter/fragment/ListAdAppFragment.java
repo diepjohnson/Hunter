@@ -22,6 +22,7 @@ import com.vn.cooperate.moneyhunter.R;
 import com.vn.cooperate.moneyhunter.adapter.ListAdAppAdapter;
 import com.vn.cooperate.moneyhunter.connect.AppConnect;
 import com.vn.cooperate.moneyhunter.model.AppModel;
+import com.vn.cooperate.moneyhunter.model.UserModel;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
 import com.vn.cooperate.moneyhunter.util.DialogUtils;
 
@@ -37,6 +38,7 @@ public class ListAdAppFragment extends Fragment {
 	Boolean isScroll =false;
 	Boolean isStartScroll =false;
 	ListAdAppAdapter adapter;
+	UserModel user;
 	@Override
 	public void onAttach(Activity activity) {
 		// TODO Auto-generated method stub
@@ -59,33 +61,39 @@ public class ListAdAppFragment extends Fragment {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View v = inflater.inflate(R.layout.fragment_list_ad_app, container, false);
-		lvListAdApp = (ListView) v.findViewById(R.id.lvListAdApp);
 		
-		adapter = new ListAdAppAdapter (listApp,mActivity.getBaseContext());
-		lvListAdApp.setAdapter(adapter);
-		DialogUtils.vDialogLoadingShowProcessing(mActivity, false);
-		AppConnect.getListADAPP(start, number,USER_ID, getListAppListener);
-		
-		//su kien keo den cuoi cua list de load them du lieu
-		lvListAdApp.setOnScrollListener(new OnScrollListener() {
-					@Override
-					public void onScroll(AbsListView view, int firstVisibleItem,
-							int visibleItemCount, int totalItemCount) {
-						
-						if (isStartScroll&&!isScroll &&(firstVisibleItem + visibleItemCount) == totalItemCount) {
-							Log.e(start+"START______________________________", start+"");
-							if (start !=-1) {
-								//List<ClipModel> temp =getDataByPage();
-								DialogUtils.vDialogLoadingShowProcessing(mActivity, false);
-								AppConnect.getListADAPP(start, number,USER_ID, getListAppListener);
-								isScroll = true;
+		 user = UserModel.getUserInfor(mActivity);
+//		if(user.getUserId()!=null&& !user.getUserId().equals(""))
+//		{
+			lvListAdApp = (ListView) v.findViewById(R.id.lvListAdApp);
+			
+			adapter = new ListAdAppAdapter (listApp,mActivity.getBaseContext());
+			lvListAdApp.setAdapter(adapter);
+			DialogUtils.vDialogLoadingShowProcessing(mActivity, false);
+			AppConnect.getListADAPP(start, number,user.getUserId(), getListAppListener);
+			
+			//su kien keo den cuoi cua list de load them du lieu
+			lvListAdApp.setOnScrollListener(new OnScrollListener() {
+						@Override
+						public void onScroll(AbsListView view, int firstVisibleItem,
+								int visibleItemCount, int totalItemCount) {
+							
+							if (isStartScroll&&!isScroll &&(firstVisibleItem + visibleItemCount) == totalItemCount) {
+								
+								if (start !=-1) {
+									//List<ClipModel> temp =getDataByPage();
+									DialogUtils.vDialogLoadingShowProcessing(mActivity, false);
+									AppConnect.getListADAPP(start, number,user.getUserId(), getListAppListener);
+									isScroll = true;
+								}
 							}
+							
 						}
-						
-					}
-					@Override
-					public void onScrollStateChanged(AbsListView view, int scrollState) {}
-				});
+						@Override
+						public void onScrollStateChanged(AbsListView view, int scrollState) {}
+					});
+			
+//		}
 		
 		return v;
 	}
