@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,21 +59,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private SlidingMenu slideMenu;
 	private ImageView imgMenu;
 	private Boolean isShowMenu = false;
-	private TextView tvMonetize;
-	private TextView tvExchange;
-	private TextView tvInvite;
-	private TextView tvFriends;
-	private TextView tvStatistic;
-	private TextView tvLucky;
-	private TextView tvTerms;
-	private TextView tvGuide;
-	private TextView tvSetting;
-	private TextView tvContacts;
+	private TextView tvMonetize,tvExchange,tvInvite,tvFriends,tvStatistic,tvLucky;
+	private TextView tvTerms, tvGuide, tvSetting,tvContacts,tvMessage;
+	private LinearLayout lnHomeContent;
 	private LoginButton btnLogin;
 	private CallbackManager managerCallback;
 	private ShareDialog dialog;
 	private Handler handler;
 	private MoneySharedPreferences mPreferences;
+ 
 	private int heightScreen;
 	private int widthScreen;
 
@@ -89,6 +84,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		initUIControl();
 		getKeyHash();
 		GCMConnect.initGCM(this);
+		if(checkLogIn())
+		{
+			addFragment(new ListAdAppFragment());
+		}
+		
 	}
 
 	private void setUpFBShare() {
@@ -167,7 +167,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		tvStatistic = (TextView) findViewById(R.id.menu_statistic);
 		tvTerms = (TextView) findViewById(R.id.menu_term_policy);
 		tvSetting = (TextView) findViewById(R.id.menu_setting);
+		tvMessage = (TextView) findViewById(R.id.tvMessage);
 		tvContacts = (TextView) findViewById(R.id.menu_contacts);
+		lnHomeContent = (LinearLayout)  findViewById(R.id.lnHomeContainer);
 		tvContacts.setOnClickListener(this);
 		tvExchange.setOnClickListener(this);
 		tvGuide.setOnClickListener(this);
@@ -268,7 +270,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			}
 		});
 
-		addFragment(new ListAdAppFragment());
+	
 
 	}
 
@@ -286,6 +288,23 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		}
 
 	}
+	
+	Boolean checkLogIn()
+	{
+		UserModel user = UserModel.getUserInfor(getApplicationContext());
+		if(user.getUserId()!=null&&!user.getUserId().equalsIgnoreCase(""))
+		{
+			lnHomeContent.setVisibility(View.VISIBLE);
+			tvMessage.setVisibility(View.GONE);
+			tvMessage.setText("");
+			
+			return true;
+		}
+		lnHomeContent.setVisibility(View.GONE);
+		tvMessage.setText(getString(R.string.unLogin));
+		tvMessage.setVisibility(View.VISIBLE);
+		return false;
+	}
 
 	@Override
 	public void onClick(View v) {
@@ -300,20 +319,34 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			}
 			break;
 		case R.id.menu_download:
-			changeFragment(new ListAdAppFragment());
+            if(checkLogIn())
+            {
+            	changeFragment(new ListAdAppFragment());
+            }
+			
 			slideMenu.showAbove();
 			break;
 		case R.id.menu_invite:
-		
-			changeFragment(new InviteFragment(dialog));
+			if (checkLogIn()) {
+				changeFragment(new InviteFragment(dialog));
+
+			}
 			slideMenu.showAbove();
 			break;
 		case R.id.menu_friend_list:
-			changeFragment(new FriendsFragment());
+			if(checkLogIn())
+			{
+				changeFragment(new FriendsFragment());
+			}
+			
 			slideMenu.showAbove();
 			break;
 		case R.id.menu_lucky:
-			changeFragment(new LuckyCardFragment());
+			if(checkLogIn())
+			{
+				changeFragment(new LuckyCardFragment());
+			}
+			
 			slideMenu.showAbove();
 			break;
 		default:
