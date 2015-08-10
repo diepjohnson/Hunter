@@ -2,9 +2,16 @@ package com.vn.cooperate.moneyhunter.model;
 
 public class FriendModel {
 	public String id;
+	public String createDate;
 	public String displayName;
 	public String getDisplayName() {
 		return displayName;
+	}
+	public String getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;

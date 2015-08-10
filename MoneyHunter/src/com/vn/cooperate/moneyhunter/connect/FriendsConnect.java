@@ -28,8 +28,8 @@ public class FriendsConnect {
 	public static void getFriendinfo(String userId, String friendId, ConnectApiListener listener){
 		ConnectSupport cnn = new ConnectSupport();
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(ConnectSupport.getParam("userId", userId));
-		params.add(ConnectSupport.getParam("friendId", friendId));
+		params.add(ConnectSupport.getParam("user_id", userId));
+		params.add(ConnectSupport.getParam("friend_id", friendId));
 		cnn.getJSONFromUrl(URL_DETAIL, params, listener);
 	}
 }

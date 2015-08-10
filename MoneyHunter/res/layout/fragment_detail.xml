@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/avatar"
         android:contentDescription="@string/app_name" />
 
     <TextView
@@ -78,11 +77,38 @@
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/friend_benefit" />
 
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_below="@id/friend_benefit"
+        android:layout_marginTop="10dp"
+        android:background="@color/grey" />
+
+    <TextView
+        android:id="@+id/title_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_below="@id/title_intro"
+        android:layout_marginTop="10dp"
+        android:background="@color/grey" />
+
     <GridView
         android:id="@+id/grd_friends"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/money_from_friend"
+        android:layout_below="@id/divider2"
         android:layout_marginTop="10dp"
         android:horizontalSpacing="3dp"
         android:numColumns="2"
