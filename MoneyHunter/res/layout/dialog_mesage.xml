@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:gravity="center"
+    
    android:id="@+id/lnHomeDialog"
     android:layout_height="wrap_content"
     android:background="@drawable/thin_boder_grey"
@@ -23,9 +24,10 @@
     <TextView
         android:layout_marginTop="10dp"
         android:id="@+id/tvMessage"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:gravity="center"
          android:textColor="#000000"
+         android:padding="5dp"
         android:text="dang nhap thanh cong"
         android:layout_height="wrap_content" />
     <Button 
