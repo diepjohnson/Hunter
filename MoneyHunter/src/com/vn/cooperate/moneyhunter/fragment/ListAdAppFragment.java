@@ -3,14 +3,13 @@ package com.vn.cooperate.moneyhunter.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +17,11 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 
+import com.vn.cooperate.moneyhunter.MainActivity;
 import com.vn.cooperate.moneyhunter.R;
 import com.vn.cooperate.moneyhunter.adapter.ListAdAppAdapter;
 import com.vn.cooperate.moneyhunter.connect.AppConnect;
+import com.vn.cooperate.moneyhunter.fragment.dialog.DialogMessage;
 import com.vn.cooperate.moneyhunter.model.AppModel;
 import com.vn.cooperate.moneyhunter.model.UserModel;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
@@ -28,7 +29,7 @@ import com.vn.cooperate.moneyhunter.util.DialogUtils;
 
 public class ListAdAppFragment extends Fragment {
 
-	static Activity mActivity; 
+	static MainActivity mActivity; 
 	LayoutInflater inflater;
 	ListView lvListAdApp;
 	List<AppModel> listApp = new ArrayList<AppModel>();
@@ -43,12 +44,77 @@ public class ListAdAppFragment extends Fragment {
 	public void onAttach(Activity activity) {
 		// TODO Auto-generated method stub
 		super.onAttach(activity);
-		mActivity = activity;
+		mActivity = (MainActivity) activity;
 		inflater = (LayoutInflater) mActivity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 	}
 	
 	
-	
+  ConnectApiListener getCoinListener = new ConnectApiListener() {
+		
+		@Override
+		public void connectSucessfull(final JSONObject data) throws JSONException {
+			// TODO Auto-generated method stub
+			handle.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stubint 
+					int errorCode;
+					try {
+						errorCode = data.getInt("errorCode");
+					
+					if(errorCode==0)
+					{
+						int userError = data.getInt("userError");
+						if(userError==0)
+						{
+							int coin = data.getInt("coin");
+							mActivity.showMessage("Message", mActivity.getString(R.string.getCoinSuccess)+coin);
+						}
+						
+						if(userError==1)
+						{
+					
+							mActivity.showMessage("Message", mActivity.getString(R.string.actionfail));
+						}
+						
+						if(userError==2)
+						{
+					
+							mActivity.showMessage("Message", mActivity.getString(R.string.actionErr));
+						}
+						}
+					else
+					{
+						mActivity.showMessage("Message", mActivity.getString(R.string.badTransaction));
+					}
+					
+					
+					}
+				
+					
+					 catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						mActivity.showMessage("Message", mActivity.getString(R.string.error));
+					}
+				}
+			});
+		}
+		
+		@Override
+		public void connectError() {
+			// TODO Auto-generated method stub
+        handle.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+				mActivity.showMessage("Message", mActivity.getString(R.string.connectErr));
+				}
+			});
+		}
+	};
 	
 	@Override
 	public void onResume() {
@@ -67,7 +133,7 @@ public class ListAdAppFragment extends Fragment {
 //		{
 			lvListAdApp = (ListView) v.findViewById(R.id.lvListAdApp);
 			
-			adapter = new ListAdAppAdapter (listApp,mActivity.getBaseContext());
+			adapter = new ListAdAppAdapter (listApp,mActivity.getBaseContext(),getCoinListener);
 			lvListAdApp.setAdapter(adapter);
 			DialogUtils.vDialogLoadingShowProcessing(mActivity, false);
 			AppConnect.getListADAPP(start, number,user.getUserId(), getListAppListener);

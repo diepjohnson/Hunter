@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -49,11 +50,11 @@ import com.vn.cooperate.moneyhunter.connect.UserConnect;
 import com.vn.cooperate.moneyhunter.fragment.FriendsFragment;
 import com.vn.cooperate.moneyhunter.fragment.InviteFragment;
 import com.vn.cooperate.moneyhunter.fragment.ListAdAppFragment;
-
 import com.vn.cooperate.moneyhunter.fragment.LuckyCardFragment;
+import com.vn.cooperate.moneyhunter.fragment.dialog.DialogMessage;
 import com.vn.cooperate.moneyhunter.model.UserModel;
-
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
+import com.vn.cooperate.moneyhunter.util.DialogUtils;
 import com.vn.cooperate.moneyhunter.util.MoneySharedPreferences;
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
@@ -89,6 +90,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		if (checkLogIn()) {
 			addFragment(new ListAdAppFragment());
 		}
+		//DialogUtils.showDialogMessage(MainActivity.this, "Dang nhap thanh cong", true);
+		//DialogUtils.vDialogLoadingShowProcessing(getBaseContext(), true);
 
 	}
 
@@ -115,7 +118,45 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				});
 
 	}
-
+	static String message="";
+    static String title="";
+	static Boolean isPause = false;
+	static Boolean isUnShowMessage = false;
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		isPause = true;
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		isPause = false;
+		if(isUnShowMessage)
+		{
+			DialogMessage mesage = new DialogMessage(title, message);
+			mesage.show(getSupportFragmentManager(), "");
+			isUnShowMessage=false;
+		}
+	}
+	public void showMessage(String title,String message)
+	{
+		if(!isPause)
+		{
+			DialogMessage mesage = new DialogMessage(title, message);
+			mesage.show(getSupportFragmentManager(), "");
+		}else
+		{
+			this.message = message;
+			this.title = title;
+			isUnShowMessage=true;
+		}
+		
+	}
+	
+	
 	private void saveDimensionScreenandDeviceID() {
 		Display display = ((WindowManager) getSystemService(WINDOW_SERVICE))
 				.getDefaultDisplay();
