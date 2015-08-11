@@ -6,7 +6,7 @@
     <color name="appbackground">#ffffff</color>
     <color name="rl_avatar">#c9bee5</color>
     <color name="slide_menu">#e8f2fe</color>
-
+    <color name="deepGrey">#9191B5</color>
     <color name="deviderColor">#d5d5d5</color>
     <color name="orange">#E89643</color>
     <color name="yellow">#FFE88D</color>
@@ -14,4 +14,5 @@
     <color name="white">#FFFFFF</color>
     <color name="green">#91c255</color>
     <color name="dimRed">#FF6666</color>
+
 </resources>

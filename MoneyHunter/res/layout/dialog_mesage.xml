@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:gravity="center"
+   android:id="@+id/lnHomeDialog"
+    android:layout_height="wrap_content"
+    android:background="@drawable/thin_boder_grey"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:background="@color/deepGrey"
+        android:gravity="center"
+        android:text="Message"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/orange"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/tvMessage"
+        android:layout_width="fill_parent"
+        android:gravity="center"
+         android:textColor="#000000"
+        android:text="dang nhap thanh cong"
+        android:layout_height="wrap_content" />
+    <Button 
+        android:id="@+id/btnOk"
+        android:layout_marginTop="10dp"
+        android:layout_width="60dp"
+        android:layout_height="35dp"
+        android:text="OK"/>
+
+</LinearLayout>
