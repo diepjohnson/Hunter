@@ -51,7 +51,7 @@ public class Util {
 			
 		
 			UserModel user = UserModel.getUserInfor(mContext);
-			Log.e("**accesstoken______", user.getAccessToken());
+		
 			int randomeKey = randomNumberLower(1000000,9999999);
 			
 			int flag = randomNumberLower(10, 20);

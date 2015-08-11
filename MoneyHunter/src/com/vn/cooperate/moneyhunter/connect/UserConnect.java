@@ -32,7 +32,7 @@ public class UserConnect {
 		params.add(ConnectSupport.getParam("app_id",appId));
 		//params.add(ConnectSupport.getParam("user_id", userId));
 		cnn.addConFirmParam(params, mContext);
-		cnn.getJSONFromUrl(URL, params, listener);
+		cnn.getJSONFromUrl(ADD_COIN_URL, params, listener);
 	}
 	
 	
