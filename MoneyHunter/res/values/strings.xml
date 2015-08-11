@@ -21,9 +21,8 @@
     <string name="install">Install Now</string>
     <string name="unLogin">Hiện tại bạn chưa đăng nhập, hãy đăng nhập và bắt đầu săn xu!</string>
     <string name="unLucky">Chúc bạn may mắn lần sau!</string>
-     <string name="Lucky">Bạn nhận được </string>
-
-     <string name="luckeyCardText">Mỗi ngày bạn có cơ hội lật bài 1 lần để nhận coin</string>
+    <string name="Lucky">Bạn nhận được </string>
+    <string name="luckeyCardText">Mỗi ngày bạn có cơ hội lật bài 1 lần để nhận coin</string>
     <string name="getCoin">Get Coin</string>
     <string name="processing">Đang xử lý, vui lòng chờ trong giây lát!</string>
     <!-- ducnm end -->
@@ -43,17 +42,25 @@
     <string name="share_via_gplus">GOOGLE+</string>
     <string name="share_via_fb">FACEBOOK</string>
     <string name="invite_code_error_toast">Bạn vừa nhập vào mã giới thiệu của chính mình. Hãy nhập mã giới thiệu của người đã giới thiệu ứng dụng với bạn.</string>
-	<string name="share_content_fb">Ứng dụng hay vãi! Mau cài đặt app để check hàng nào, tham gia thì nhớ vote cho mình nhé. Mã số của mình là:  </string>
-	<string name="share_title_fb">Check hàng online</string>
-	
-	  <!-- Fragment Friend list -->
-	  <string name="label_number_friend">Số lượng bạn: </string>
-	  <string name="label_number_friend_of_friend">Số lượng bạn mức 2: </string>
-	  <!-- Detail Fragment -->
-	  <string name="txt_creat_date">Ngày kết bạn:</string>
-	  <string name="txt_share_benefit">Lợi nhuận chia sẻ:</string>
-	  <string name="app_benefit">Tải App:</string>
-	  <string name="friend_benefit">Bạn bè mức 2:</string>
-	  <string name="introduced_number">Số bạn đã giới thiệu được: </string>
-	
+    <string name="share_content_fb">Ứng dụng hay vãi! Mau cài đặt app để check hàng nào, tham gia thì nhớ vote cho mình nhé. Mã số của mình là:  </string>
+    <string name="share_title_fb">Check hàng online</string>
+
+    <!-- Fragment Friend list -->
+    <string name="label_number_friend">Số lượng bạn: </string>
+    <string name="label_number_friend_of_friend">Số lượng bạn mức 2: </string>
+    <!-- Detail Fragment -->
+    <string name="txt_creat_date">Ngày kết bạn:</string>
+    <string name="txt_share_benefit">Lợi nhuận chia sẻ:</string>
+    <string name="app_benefit">Tải App:</string>
+    <string name="friend_benefit">Bạn bè mức 2:</string>
+    <string name="introduced_number">Số bạn đã giới thiệu được: </string>
+    <!-- Fragment Statistic -->
+    <string name="label_total">Total:</string>
+    <string name="label_current">Current:</string>
+    <string name="label_month">This month:</string>
+    <string name="label_week">This week:</string>
+    <string name="label_today">Today:</string>
+    <string name="btn_show_off">Khoe bạn</string>
+    <string name="btn_exchange">Đổi thưởng</string>
+
 </resources>

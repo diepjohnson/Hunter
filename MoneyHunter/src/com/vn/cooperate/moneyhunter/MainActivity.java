@@ -289,6 +289,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					&& com.facebook.Profile.getCurrentProfile() != null) {
 				LoginManager.getInstance().logOut();
 				mPreferences.clearAll();
+				checkLogIn();
+				slideMenu.showAbove();
 			} else {
 				facebookLogin();
 			}
@@ -438,6 +440,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				public void run() {
 					Toast.makeText(MainActivity.this, " Login successfuly",
 							Toast.LENGTH_SHORT).show();
+					if(checkLogIn()){
+						addFragment(new ListAdAppFragment());
+					}
 					slideMenu.showAbove();
 				}
 			});
