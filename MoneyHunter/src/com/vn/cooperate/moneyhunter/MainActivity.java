@@ -48,6 +48,7 @@ import com.slidingmenu.lib.SlidingMenu;
 import com.vn.cooperate.moneyhunter.connect.GCMConnect;
 import com.vn.cooperate.moneyhunter.connect.UserConnect;
 import com.vn.cooperate.moneyhunter.fragment.FriendsFragment;
+import com.vn.cooperate.moneyhunter.fragment.IncomeStatisticFragment;
 import com.vn.cooperate.moneyhunter.fragment.InviteFragment;
 import com.vn.cooperate.moneyhunter.fragment.ListAdAppFragment;
 import com.vn.cooperate.moneyhunter.fragment.LuckyCardFragment;
@@ -336,6 +337,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				facebookLogin();
 			}
 			break;
+		case R.id.menu_statistic:
+			if (checkLogIn()) {
+				changeFragment(new IncomeStatisticFragment());
+			}
+
+			slideMenu.showAbove();
+			break;
+			
 		default:
 			break;
 		}

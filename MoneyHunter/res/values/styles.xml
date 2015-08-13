@@ -2,21 +2,82 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-   
-<style name="tvItemName"><item name="android:textColor">#666699</item>
-    <item name="android:textStyle">bold</item>
-    <item name="android:textSize">14sp</item>
-</style>
+    <style name="StyledIndicators" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
+    </style>
 
-<style name="tvItemDescription"><item name="android:textColor">#9191B5</item>
-    <item name="android:textStyle">normal</item>
-    <item name="android:textSize">13sp</item>
-</style>
-<style name="tvItemDate"><item name="android:textColor">#9191B5</item>
-    <item name="android:textStyle">italic</item>
-    <item name="android:gravity">right</item>
-    <item name="android:textSize">13sp</item>
-</style>
+    <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
+        <item name="android:background">@drawable/custom_tab_indicator</item>
+        <item name="android:textAppearance">@style/CustomTabPageIndicator.Text</item>
+        <item name="android:textColor">#6d6e70</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:divider">@drawable/custom_tab_indicator_divider</item>
+        <item name="android:dividerPadding">10dp</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:fadingEdge">horizontal</item>
+        <item name="android:fadingEdgeLength">8dp</item>
+    </style>
+
+    <style name="StyledIndicatorAdmin" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="vpiTabPageIndicatorStyle">@style/TabPageIndicatorAdmin</item>
+        <item name="vpiTabPageTitleAdminStyle">@style/CustomTabPageAdminIndicator.Text</item>
+    </style>
+
+    <style name="TabPageIndicatorAdmin" parent="Widget.TabPageIndicator">
+        <item name="android:background">@drawable/custom_tab_indicator_admin_selector</item>
+        <item name="android:textColor">@color/gray_white_selector</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:fadingEdge">horizontal</item>
+        <item name="android:fadingEdgeLength">0dp</item>
+    </style>
+
+    <style name="CustomTabPageIndicator.Text" parent="android:TextAppearance.Medium">
+        <item name="android:typeface">monospace</item>
+    </style>
+
+    <style name="CustomTabPageAdminIndicator.Text" parent="android:TextAppearance.Medium">
+        <item name="android:typeface">monospace</item>
+        <item name="android:textColor">@color/gray_white_selector</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="vpiTextTitleTabIndicator" parent="android:TextAppearance.Medium">
+        <item name="android:typeface">monospace</item>
+        <item name="android:textColor">#6d6e70</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="tvItemName">
+        <item name="android:textColor">#666699</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="tvItemDescription">
+        <item name="android:textColor">#9191B5</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="tvItemDate">
+        <item name="android:textColor">#9191B5</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:gravity">right</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="tab_home_normal">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="tab_home_bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

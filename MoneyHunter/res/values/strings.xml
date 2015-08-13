@@ -19,11 +19,11 @@
     <string name="facebook_app_id">840614236033853</string>
     <!-- ducnm start -->
     <string name="connectErr">Thao tác thất bại, vui lòng kiểm tra lại kết nối mạng!</string>
-     <string name="actionfail">Thao tác thất bại, vui lòng thử lại sau!</string>
-       <string name="actionErr">Có lỗi xảy ra, vui lòng liên hệ để được trợ giúp!</string>
-          <string name="badTransaction">Thao tác thất bại, phát hiện yêu cầu bất thường!</string>
-     <string name="error">Có lỗi xảy ra vui lòng thử lại sau!</string>
-     <string name="getCoinSuccess">Bạn đã nhận được </string>
+    <string name="actionfail">Thao tác thất bại, vui lòng thử lại sau!</string>
+    <string name="actionErr">Có lỗi xảy ra, vui lòng liên hệ để được trợ giúp!</string>
+    <string name="badTransaction">Thao tác thất bại, phát hiện yêu cầu bất thường!</string>
+    <string name="error">Có lỗi xảy ra vui lòng thử lại sau!</string>
+    <string name="getCoinSuccess">Bạn đã nhận được </string>
     <string name="install">Install Now</string>
     <string name="unLogin">Hiện tại bạn chưa đăng nhập, hãy đăng nhập và bắt đầu săn xu!</string>
     <string name="unLucky">Chúc bạn may mắn lần sau!</string>
@@ -68,5 +68,12 @@
     <string name="label_today">Today:</string>
     <string name="btn_show_off">Khoe bạn</string>
     <string name="btn_exchange">Đổi thưởng</string>
+    <string name="from_install">Từ cài ứng dụng</string>
+    <string name="from_f1">Từ bạn bè cài ứng dụng</string>
+    <string name="from_f2">Từ bạn bè mức 2 cài ứng dụng</string>
+    <string name="from_lucky">Từ lá bài may mắn</string>
+    <string name="from_make_friend">Kết bạn thành công</string>
+    <string name="earn">Bạn kiếm được: </string>
+    <string name="dollar">$</string>
 
 </resources>
