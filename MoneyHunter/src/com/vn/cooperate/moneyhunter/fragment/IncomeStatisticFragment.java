@@ -33,12 +33,10 @@ public class IncomeStatisticFragment extends Fragment {
 		mViewPager = (ViewPager) view.findViewById(R.id.home_pager);
 		ReceiveTabFragment fragReceive = new ReceiveTabFragment();
 		list = new ArrayList<BaseFragment>();
-		fragReceive.setTitle("TAB1");
-		fragReceive.setDrawable(R.drawable.tab_category_home_selector);
+		fragReceive.setTitle(getString(R.string.tab_name1));
 		list.add(fragReceive);
-		ReceiveTabFragment fragReceive1 = new ReceiveTabFragment();
-		fragReceive.setDrawable(R.drawable.tab_info_home_selector);
-		fragReceive1.setTitle("TAB2");
+		ExchangeTabFragment fragReceive1 = new ExchangeTabFragment();
+		fragReceive1.setTitle(getString(R.string.tab_name2));
 		list.add(fragReceive1);
 		mMageger = getActivity().getSupportFragmentManager();
 		tabAdpter = new TabAdpter(mMageger, list);

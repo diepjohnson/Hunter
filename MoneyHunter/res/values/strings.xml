@@ -75,5 +75,10 @@
     <string name="from_make_friend">Kết bạn thành công</string>
     <string name="earn">Bạn kiếm được: </string>
     <string name="dollar">$</string>
-
+    <string name="tab_name1">Nhận thưởng</string>
+    <string name="tab_name2">Đổi thưởng</string>
+	<string name="vnd">VND</string>
+	<string name="exchange_tab">Bạn đã đổi thưởng được</string>
+	<string name="label_cost">Thẻ cào mệnh giá: </string>
+	<string name="code_card">Mã thẻ: </string>
 </resources>

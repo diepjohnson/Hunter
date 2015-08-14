@@ -12,12 +12,21 @@ public class MoneySharedPreferences {
 	public static final String INVITE_CODE = "ICODE";
 	public static final String ACCESS_TOKEN = "ATOKEN";
 	public static final String DEV_ID = "DEVID";
+	public static final String USER_AVATAR = "AVATAR";
 
 	public MoneySharedPreferences(Context context) {
 		mPreferences = context.getSharedPreferences(APP_NAME,
 				Context.MODE_PRIVATE);
 	}
+	public String getMyAvatar(Context context) {
+		return mPreferences.getString(USER_AVATAR, "");
+	}
 
+	public void setMyAvatar(String urlAvatar) {
+		Editor editor = mPreferences.edit();
+		editor.putString(USER_AVATAR, urlAvatar);
+		editor.commit();
+	}
 	public String getDeviceID(Context context) {
 		return mPreferences.getString(DEV_ID, "");
 	}

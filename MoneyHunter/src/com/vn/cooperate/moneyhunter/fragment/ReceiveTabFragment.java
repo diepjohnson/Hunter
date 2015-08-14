@@ -10,18 +10,27 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 
 import com.vn.cooperate.moneyhunter.R;
 import com.vn.cooperate.moneyhunter.adapter.ListReceiveAdapter;
+import com.vn.cooperate.moneyhunter.connect.AppConnect;
 import com.vn.cooperate.moneyhunter.connect.TransactionConnect;
 import com.vn.cooperate.moneyhunter.model.TransactionModel;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
+import com.vn.cooperate.moneyhunter.util.DialogUtils;
 
 public class ReceiveTabFragment extends BaseFragment {
 	private ListView lvReceice;
 	private ListReceiveAdapter mAdapter;
 	private ArrayList<TransactionModel> list;
+	int start = 0;
+	int number = 10;
+	int USER_ID = 2;
+	Boolean isScroll = false;
+	Boolean isStartScroll = false;
 	private ConnectApiListener listener = new ConnectApiListener() {
 
 		@Override
@@ -31,6 +40,7 @@ public class ReceiveTabFragment extends BaseFragment {
 
 				@Override
 				public void run() {
+					DialogUtils.vDialogLoadingDismiss();
 					try {
 						parseJSONData(data);
 					} catch (JSONException e) {
@@ -56,7 +66,22 @@ public class ReceiveTabFragment extends BaseFragment {
 							}
 							list.add(model);
 						}
-						mAdapter.notifyDataSetChanged();
+						if (!isScroll) {
+							if (list.size() > 0) {
+								mAdapter.notifyDataSetChanged();
+								start += list.size();
+								isStartScroll = true;
+							}
+						} else {
+							if (list.size() > 0) {
+								mAdapter.notifyDataSetChanged();
+								start += list.size();
+							}else{
+								start = -1;
+							}
+							isScroll = false;
+						}
+
 					}
 				}
 
@@ -65,14 +90,20 @@ public class ReceiveTabFragment extends BaseFragment {
 
 		@Override
 		public void connectError() {
-
+			getActivity().runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					DialogUtils.vDialogLoadingDismiss();
+				}
+			});
 		}
 	};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		TransactionConnect.getListADAPP(0, 10, "1", "14", listener);
+		TransactionConnect.getListADAPP(start, number, "1", "14", listener);
 	}
 
 	@Override
@@ -83,6 +114,32 @@ public class ReceiveTabFragment extends BaseFragment {
 		list = new ArrayList<TransactionModel>();
 		mAdapter = new ListReceiveAdapter(list, getActivity());
 		lvReceice.setAdapter(mAdapter);
+		lvReceice.setOnScrollListener(new OnScrollListener() {
+
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				if (isStartScroll
+						&& !isScroll
+						&& (firstVisibleItem + visibleItemCount) == totalItemCount) {
+
+					if (start != -1) {
+						// List<ClipModel> temp =getDataByPage();
+						DialogUtils.vDialogLoadingShowProcessing(getActivity(),
+								false);
+						TransactionConnect.getListADAPP(start, number, "1",
+								"12", listener);
+						isScroll = true;
+					}
+				}
+
+			}
+		});
 		return view;
 	}
 }

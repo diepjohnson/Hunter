@@ -68,9 +68,9 @@ public class ListFriendsAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		AQuery aQuery = mAQ.recycle(convertView);
-		aQuery.id(holder.imgAvatar).image(
-				listFriends.get(position).getAvatar(), true, true, 0, 0, null,
+		String url = listFriends.get(position).getAvatar();
+		mAQ.id(holder.imgAvatar).image(url
+				, true, true, 0, 0, null,
 				0, 1);
 		holder.tvName.setText(listFriends.get(position).getDisplayName());
 		holder.tvNumber.setText(listFriends.get(position).getNumberFriend());

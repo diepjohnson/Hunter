@@ -30,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidquery.AQuery;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -74,6 +75,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	private int heightScreen;
 	private int widthScreen;
+	public ImageView myAvatar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +93,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		if (checkLogIn()) {
 			addFragment(new ListAdAppFragment());
 		}
-		//DialogUtils.showDialogMessage(MainActivity.this, "Dang nhap thanh cong", true);
-		//DialogUtils.vDialogLoadingShowProcessing(getBaseContext(), true);
+		// DialogUtils.showDialogMessage(MainActivity.this,
+		// "Dang nhap thanh cong", true);
+		// DialogUtils.vDialogLoadingShowProcessing(getBaseContext(), true);
 
 	}
 
@@ -119,45 +122,43 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				});
 
 	}
-	static String message="";
-    static String title="";
+
+	static String message = "";
+	static String title = "";
 	static Boolean isPause = false;
 	static Boolean isUnShowMessage = false;
+
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		isPause = true;
 	}
-	
+
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		isPause = false;
-		if(isUnShowMessage)
-		{
+		if (isUnShowMessage) {
 			DialogMessage mesage = new DialogMessage(title, message);
 			mesage.show(getSupportFragmentManager(), "");
-			isUnShowMessage=false;
+			isUnShowMessage = false;
 		}
 	}
-	public void showMessage(String title,String message)
-	{
-		if(!isPause)
-		{
+
+	public void showMessage(String title, String message) {
+		if (!isPause) {
 			DialogMessage mesage = new DialogMessage(title, message);
 			mesage.show(getSupportFragmentManager(), "");
-		}else
-		{
+		} else {
 			this.message = message;
 			this.title = title;
-			isUnShowMessage=true;
+			isUnShowMessage = true;
 		}
-		
+
 	}
-	
-	
+
 	private void saveDimensionScreenandDeviceID() {
 		Display display = ((WindowManager) getSystemService(WINDOW_SERVICE))
 				.getDefaultDisplay();
@@ -197,6 +198,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	}
 
 	private void initUIControl() {
+		myAvatar = (ImageView) findViewById(R.id.img_avatar);
 		slideMenu = (SlidingMenu) findViewById(R.id.sliding_menu);
 		imgMenu = (ImageView) findViewById(R.id.imgMenu);
 		imgMenu.setOnClickListener(this);
@@ -344,7 +346,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 			slideMenu.showAbove();
 			break;
-			
+
 		default:
 			break;
 		}
@@ -369,6 +371,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 												"response" + object.toString());
 
 										try {
+											final String urlAvatar = object
+													.getJSONObject("picture")
+													.getJSONObject("data")
+													.getString("url");
+											mPreferences.setMyAvatar(urlAvatar);
+											Log.e("URL_AVATAR", ": "+urlAvatar);
 											final String name = object
 													.getString("name");
 											final String facebookId = object
@@ -390,11 +398,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 															name,
 															email,
 															facebookId,
-
 															mPreferences
 																	.getDeviceID(MainActivity.this),
 															1,
-
+															urlAvatar,
 															logonListener);
 
 												}
@@ -490,8 +497,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				public void run() {
 					Toast.makeText(MainActivity.this, " Login successfuly",
 							Toast.LENGTH_SHORT).show();
-					if(checkLogIn()){
+					AQuery aQ = new AQuery(MainActivity.this);
+					if (checkLogIn()) {
 						addFragment(new ListAdAppFragment());
+						aQ.id(myAvatar).image(mPreferences.getMyAvatar(MainActivity.this), true, true, 0, 0, null, 0, 1);
 					}
 					slideMenu.showAbove();
 				}

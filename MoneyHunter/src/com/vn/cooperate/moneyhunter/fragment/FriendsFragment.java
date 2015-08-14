@@ -42,18 +42,11 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 		homeActivity = (MainActivity)activity;
 	}
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		// FriendsConnect.getListFriend(new
-		// MoneySharedPreferences(getActivity())
-		// .getUserID(getActivity()), listener);
-		FriendsConnect.getListFriend("14", listener);
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		FriendsConnect.getListFriend("14", listener);
 		View view = inflater.inflate(R.layout.fragment_friend_list, container,
 				false);
 		tvNumberFriend = (TextView) view.findViewById(R.id.number_friend);
@@ -63,7 +56,6 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 		listFriends = new ArrayList<FriendModel>();
 		mAdapter = new ListFriendsAdapter(getActivity(), listFriends);
 		grdFriends.setAdapter(mAdapter);
-		mAdapter.notifyDataSetChanged();
 		grdFriends.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -106,7 +98,7 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 								FriendModel model = new FriendModel();
 								JSONObject objFriend = jArray.getJSONObject(i);
 								model.setId(objFriend.getString("friendId"));
-								model.setAvatar(objFriend.getString("avatar"));
+								model.setAvatar(objFriend.getString("avatarUrl"));
 								model.setDisplayName(objFriend
 										.getString("name"));
 								model.setId(objFriend.getString("friendId"));

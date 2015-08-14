@@ -1,6 +1,9 @@
 package com.vn.cooperate.moneyhunter.model;
 
 import java.util.Calendar;
+import java.util.Date;
+
+import android.text.format.DateFormat;
 
 public class TransactionModel {
 	public String type;
@@ -47,8 +50,8 @@ public class TransactionModel {
 
 	public String getmDate() {
 		Calendar cal = Calendar.getInstance();
-		cal.setTimeInMillis(Long.parseLong(mDate) * 1000);
-		return cal.getTime().toString();
+		String dateString= DateFormat.format("MM/dd/yyyy", new Date(Long.parseLong(mDate) * 1000)).toString();
+		return dateString;
 	}
 
 	public void setmDate(String mDate) {

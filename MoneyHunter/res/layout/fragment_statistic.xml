@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/avatar"
             android:contentDescription="@string/app_name" />
 
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/img_avatar"
             android:text="@string/label_total" />
 
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/label_total" />
 
         <TextView
@@ -40,7 +40,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/label_total"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/img_avatar"
             android:text="@string/label_current" />
 
@@ -50,7 +49,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_num_total"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/label_current" />
 
         <TextView
@@ -59,7 +57,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/label_current"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/img_avatar"
             android:text="@string/label_month" />
 
@@ -69,7 +66,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_num_current"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/label_current" />
 
         <TextView
@@ -78,7 +74,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/label_month"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/img_avatar"
             android:text="@string/label_week" />
 
@@ -88,7 +83,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_num_month"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/label_current" />
 
         <TextView
@@ -97,7 +91,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/label_week"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/img_avatar"
             android:text="@string/label_today" />
 
@@ -107,7 +100,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_num_week"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/label_current" />
 
         <LinearLayout
@@ -138,11 +130,18 @@
         </LinearLayout>
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_below="@id/rl_overview"
+        android:background="@color/grey" />
+
     <com.vn.cooperate.moneyhunter.view.TabPageIndicator
         android:id="@+id/tab_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rl_overview" />
+        android:layout_below="@id/divider" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/home_pager"

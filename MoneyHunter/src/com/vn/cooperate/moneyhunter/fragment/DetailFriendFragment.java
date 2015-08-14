@@ -95,7 +95,7 @@ public class DetailFriendFragment extends Fragment {
 								FriendModel model = new FriendModel();
 								JSONObject objFriend = jArray.getJSONObject(i);
 								model.setId(objFriend.getString("friendId"));
-								model.setAvatar(objFriend.getString("avatar"));
+								model.setAvatar(objFriend.getString("avatarUrl"));
 								model.setDisplayName(objFriend.getString("name"));
 								model.setId(objFriend.getString("friendId"));
 								model.setNumberFriend(objFriend
