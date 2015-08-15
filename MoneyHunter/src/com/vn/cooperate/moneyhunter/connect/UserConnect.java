@@ -13,6 +13,7 @@ import com.vn.cooperate.moneyhunter.util.ConnectSupport;
 public class UserConnect {
 	static String URL = "http://prosoftforlife.com/moneyhunter/signin.php";
 	static String ADD_COIN_URL = "http://prosoftforlife.com/moneyhunter/addCoinByInstall.php";
+	static String URL_PROFIT = "http://prosoftforlife.com/moneyhunter/getUserProfit.php";
 
 	public static void logon(String name, String email, String facebookId,
 			String deviceId, int type, String urlAvatar,
@@ -37,5 +38,11 @@ public class UserConnect {
 		cnn.addConFirmParam(params, mContext);
 		cnn.getJSONFromUrl(ADD_COIN_URL, params, listener);
 	}
-
+	public static void getUserProfit( String userId,
+			ConnectApiListener listener) {
+		ConnectSupport cnn = new ConnectSupport();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(ConnectSupport.getParam("user_id", userId));
+		cnn.getJSONFromUrl(URL_PROFIT, params, listener);
+	}
 }
