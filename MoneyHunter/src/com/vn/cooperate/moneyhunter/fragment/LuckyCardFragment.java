@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -18,11 +16,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.vn.cooperate.moneyhunter.MainActivity;
 import com.vn.cooperate.moneyhunter.R;
 import com.vn.cooperate.moneyhunter.connect.LuckyCardConnect;
 import com.vn.cooperate.moneyhunter.model.UserModel;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
-import com.vn.cooperate.moneyhunter.util.DialogUtils;
 import com.vn.cooperate.moneyhunter.util.MoneySharedPreferences;
 
 public class LuckyCardFragment extends Fragment {
@@ -32,7 +30,7 @@ public class LuckyCardFragment extends Fragment {
 	int rewardId = 1;
 	Button btnCard1, btnCard2, btnCard3, btnCard4, btnCard5, btnCard6;
 	int buttonIndex = 0;
-	Activity mActivity;
+	MainActivity mActivity;
 	static Boolean isGetCoin=false;
 
 	Handler handle = new Handler();
@@ -40,9 +38,14 @@ public class LuckyCardFragment extends Fragment {
 	public void onAttach(Activity activity) {
 		// TODO Auto-generated method stub
 		super.onAttach(activity);
-		mActivity = activity;
+		mActivity = (MainActivity) activity;
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		mActivity.setFragmentId(MainActivity.FRAGMENT_DOWNLOAD);
+	};
 	ConnectApiListener connectListener = new ConnectApiListener() {
 		
 		@Override
@@ -54,8 +57,9 @@ public class LuckyCardFragment extends Fragment {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					DialogUtils.vDialogLoadingDismiss();
+					
 					try {
+						mActivity.hideLoadingMessage();
 						int erorCode = data.getInt("errorCode");
 						if(erorCode==0)
 						{
@@ -86,7 +90,7 @@ public class LuckyCardFragment extends Fragment {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					DialogUtils.vDialogLoadingDismiss();
+					mActivity.hideLoadingMessage();
 				}
 			});
 		}
@@ -110,7 +114,8 @@ public class LuckyCardFragment extends Fragment {
 		btnCard5 = (Button) v.findViewById(R.id.btnCard5);
 		btnCard6 = (Button) v.findViewById(R.id.btnCard6);
 		UserModel user = UserModel.getUserInfor(mActivity);
-		DialogUtils.vDialogLoadingShowProcessing(mActivity, true);
+		mActivity.showLoadingMessage(mActivity.getString(R.string.processing));
+		//DialogUtils.vDialogLoadingShowProcessing(mActivity, true);
 		LuckyCardConnect.getDailyReward(user.getUserId(), connectListener);
 
 		btnCard1.setOnClickListener(listener);
@@ -162,7 +167,15 @@ public class LuckyCardFragment extends Fragment {
 	
 	
 		int coin = listCard.get(rewardId);
-		btnCard.setText(mActivity.getString(R.string.Lucky)+ coin+" coin");
+		if(coin==0)
+		{
+			btnCard.setText(mActivity.getString(R.string.unLucky));
+		}
+		else
+		{
+			btnCard.setText(mActivity.getString(R.string.Lucky)+ coin+" coin");
+		}
+		
 		btnCard.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.selected_card));
 		listCard.remove(rewardId);
 		

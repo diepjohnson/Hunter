@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +15,12 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 
+import com.vn.cooperate.moneyhunter.MainActivity;
 import com.vn.cooperate.moneyhunter.R;
 import com.vn.cooperate.moneyhunter.adapter.ListExchangeAdapter;
-import com.vn.cooperate.moneyhunter.adapter.ListReceiveAdapter;
 import com.vn.cooperate.moneyhunter.connect.TransactionConnect;
 import com.vn.cooperate.moneyhunter.model.TransactionModel;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
-import com.vn.cooperate.moneyhunter.util.DialogUtils;
 
 public class ExchangeTabFragment extends BaseFragment {
 	private ListView lvReceice;
@@ -31,6 +31,14 @@ public class ExchangeTabFragment extends BaseFragment {
 	int USER_ID = 2;
 	Boolean isScroll = false;
 	Boolean isStartScroll = false;
+	
+	MainActivity mActivity;
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		mActivity =(MainActivity) activity;
+	}
 	private ConnectApiListener listener = new ConnectApiListener() {
 
 		@Override
@@ -40,7 +48,7 @@ public class ExchangeTabFragment extends BaseFragment {
 
 				@Override
 				public void run() {
-					DialogUtils.vDialogLoadingDismiss();
+					mActivity.hideLoadingMessage();
 					try {
 						parseJSONData(data);
 					} catch (JSONException e) {
@@ -90,7 +98,7 @@ public class ExchangeTabFragment extends BaseFragment {
 				
 				@Override
 				public void run() {
-					DialogUtils.vDialogLoadingDismiss();
+					mActivity.hideLoadingMessage();
 				}
 			});
 		}
@@ -122,8 +130,7 @@ public class ExchangeTabFragment extends BaseFragment {
 
 					if (start != -1) {
 						// List<ClipModel> temp =getDataByPage();
-						DialogUtils.vDialogLoadingShowProcessing(getActivity(),
-								false);
+						mActivity.showLoadingMessage();
 						TransactionConnect.getListADAPP(start, number, "-1",
 								"12", listener);
 						isScroll = true;

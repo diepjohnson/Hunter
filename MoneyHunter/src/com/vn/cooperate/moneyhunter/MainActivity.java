@@ -6,7 +6,6 @@ import java.security.NoSuchAlgorithmException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -18,6 +17,7 @@ import android.os.Handler;
 import android.provider.Settings.Secure;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.util.Log;
@@ -56,7 +56,6 @@ import com.vn.cooperate.moneyhunter.fragment.LuckyCardFragment;
 import com.vn.cooperate.moneyhunter.fragment.dialog.DialogMessage;
 import com.vn.cooperate.moneyhunter.model.UserModel;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
-import com.vn.cooperate.moneyhunter.util.DialogUtils;
 import com.vn.cooperate.moneyhunter.util.MoneySharedPreferences;
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
@@ -65,8 +64,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private Boolean isShowMenu = false;
 	private TextView tvMonetize, tvExchange, tvInvite, tvFriends, tvStatistic,
 			tvLucky;
-	private TextView tvTerms, tvGuide, tvSetting, tvContacts, tvMessage;
+	private TextView tvTerms, tvGuide, tvSetting, tvContacts, tvMessage,tvLoadingMessage;
 	private LinearLayout lnHomeContent;
+	
+	private LinearLayout lnSystemMessage;
 	private LoginButton btnLogin;
 	private CallbackManager managerCallback;
 	private ShareDialog dialog;
@@ -76,7 +77,34 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private int heightScreen;
 	private int widthScreen;
 	public ImageView myAvatar;
+	
+	public static int FRAGMENT_DOWNLOAD=1;
+	public static int FRAGMENT_INVITE=2;
+	public static int FRAGMENT_FRIENDLIST=3;
+	public static int FRAGMENT_LUCKYCARD=4;
+	public static int FRAGMENT_USERPROFIT=5;
+	int fragmentId=0;
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		isPause = false;
+		if (isUnShowMessage) {
+			DialogMessage mesage = new DialogMessage(title, message);
+			mesage.show(getSupportFragmentManager(), "");
+			isUnShowMessage = false;
+		}
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		isPause = true;
+	}
+
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		FacebookSdk.sdkInitialize(this);
@@ -98,6 +126,26 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		// DialogUtils.vDialogLoadingShowProcessing(getBaseContext(), true);
 
 	}
+	
+	
+	 @Override
+	   public void onBackPressed() {
+	   	// TODO Auto-generated method stub
+		 isShowMenu =false;
+		   slideMenu.showAbove();
+		   FragmentManager fm =getSupportFragmentManager();
+		   if(fm.getBackStackEntryCount()>0)
+		   {
+			   getSupportFragmentManager().popBackStack();
+		   }
+		   else
+		   {
+			   finish();
+		   }
+	
+	   	
+	   }
+	   
 
 	private void setUpFBShare() {
 		dialog = new ShareDialog(this);
@@ -128,26 +176,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	static Boolean isPause = false;
 	static Boolean isUnShowMessage = false;
 
-	@Override
-	protected void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
-		isPause = true;
-	}
 
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		isPause = false;
-		if (isUnShowMessage) {
-			DialogMessage mesage = new DialogMessage(title, message);
-			mesage.show(getSupportFragmentManager(), "");
-			isUnShowMessage = false;
-		}
-	}
-
-	public void showMessage(String title, String message) {
+	public void showMessageDialog(String title, String message) {
 		if (!isPause) {
 			DialogMessage mesage = new DialogMessage(title, message);
 			mesage.show(getSupportFragmentManager(), "");
@@ -157,6 +187,23 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			isUnShowMessage = true;
 		}
 
+	}
+	
+	public void showLoadingMessage() {
+		
+        lnSystemMessage.setVisibility(View.VISIBLE);
+        tvLoadingMessage.setText(getString(R.string.processing));
+	}
+	public void showLoadingMessage(String message) {
+	
+        lnSystemMessage.setVisibility(View.VISIBLE);
+        tvLoadingMessage.setText(message);
+	}
+	
+	public void hideLoadingMessage() {
+		
+        lnSystemMessage.setVisibility(View.GONE);
+        //tvLoadingMessage.setText(message);
 	}
 
 	private void saveDimensionScreenandDeviceID() {
@@ -215,8 +262,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		tvTerms = (TextView) findViewById(R.id.menu_term_policy);
 		tvSetting = (TextView) findViewById(R.id.menu_setting);
 		tvMessage = (TextView) findViewById(R.id.tvMessage);
+		tvLoadingMessage = (TextView) findViewById(R.id.tvLoadingMessage);
 		tvContacts = (TextView) findViewById(R.id.menu_contacts);
 		lnHomeContent = (LinearLayout) findViewById(R.id.lnHomeContainer);
+		lnSystemMessage = (LinearLayout) findViewById(R.id.lnSystemMessage);
 		tvContacts.setOnClickListener(this);
 		tvExchange.setOnClickListener(this);
 		tvGuide.setOnClickListener(this);
@@ -251,14 +300,36 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		});
 
 	}
+	
+	  
+		public void addFragment(Fragment fragment) {
+			try {
+				curFragment = fragment;
+				FragmentTransaction ft = getSupportFragmentManager()
+						.beginTransaction();
+				ft.addToBackStack(""+fragmentId);
+				ft.add(R.id.lnHomeContainer, fragment);
+				ft.commit();
+			} catch (Exception e) {
+				Log.e("ERR change frag ", "" + e.getMessage());
+			}
+
+		}
+
 
 	Fragment curFragment;
 
-	public void changeFragment(Fragment fragment) {
+	public void changeFragment(Fragment fragment,Boolean isClearTop) {
 		try {
 			curFragment = fragment;
+			
 			FragmentTransaction ft = getSupportFragmentManager()
 					.beginTransaction();
+			if(isClearTop)
+			{
+				 getSupportFragmentManager().popBackStack("", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+			}
+			ft.addToBackStack(""+fragmentId);
 			ft.replace(R.id.lnHomeContainer, fragment);
 			ft.commit();
 		} catch (Exception e) {
@@ -266,7 +337,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		}
 
 	}
-
+	
+	
+	public void setFragmentId(int id)
+	{
+		fragmentId = id;
+	}
+	
+    
 	boolean checkLogIn() {
 		boolean result;
 		UserModel user = UserModel.getUserInfor(getApplicationContext());
@@ -286,10 +364,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	}
 
+	int SHOW_MENU_DELAY=300;
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.imgMenu:
+			
 			if (!isShowMenu) {
 				slideMenu.showBehind();
 				isShowMenu = true;
@@ -299,36 +379,92 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			}
 			break;
 		case R.id.menu_download:
-			if (checkLogIn()) {
-				changeFragment(new ListAdAppFragment());
+			isShowMenu = false;
+			if (checkLogIn()&&fragmentId!=FRAGMENT_DOWNLOAD) {
+				
+				handler.postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						changeFragment(new ListAdAppFragment(),true);
+					}
+				}, SHOW_MENU_DELAY);
+				
 			}
-
+			fragmentId = FRAGMENT_DOWNLOAD;
 			slideMenu.showAbove();
 			break;
 		case R.id.menu_invite:
-
-			changeFragment(new InviteFragment(dialog));
-			if (checkLogIn()) {
-				changeFragment(new InviteFragment(dialog));
+			isShowMenu = false;
+			isShowMenu = false;
+			changeFragment(new InviteFragment(dialog),false);
+			if (checkLogIn()&&fragmentId!=FRAGMENT_INVITE) {
+				handler.postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						changeFragment(new InviteFragment(dialog),false);
+					}
+				}, SHOW_MENU_DELAY);
+				
 
 			}
+			fragmentId = FRAGMENT_INVITE;
 			slideMenu.showAbove();
 			break;
 		case R.id.menu_friend_list:
-			if (checkLogIn()) {
-				changeFragment(new FriendsFragment());
+			isShowMenu = false;
+			if (checkLogIn()&&fragmentId!=FRAGMENT_FRIENDLIST) {
+				handler.postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						changeFragment(new FriendsFragment(),false);
+					}
+				}, SHOW_MENU_DELAY);
+				
 			}
-
+			fragmentId = FRAGMENT_FRIENDLIST;
 			slideMenu.showAbove();
 			break;
 		case R.id.menu_lucky:
-			if (checkLogIn()) {
-				changeFragment(new LuckyCardFragment());
+			isShowMenu = false;
+			if (checkLogIn()&&fragmentId!=FRAGMENT_LUCKYCARD) {
+				handler.postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						changeFragment(new LuckyCardFragment(),false);
+					}
+				}, SHOW_MENU_DELAY);
+				
 			}
-
+			fragmentId = FRAGMENT_LUCKYCARD;
 			slideMenu.showAbove();
 			break;
-		case R.id.login_button:
+		
+		case R.id.menu_statistic:
+			isShowMenu = false;
+			if (checkLogIn()&&fragmentId!=FRAGMENT_USERPROFIT) {
+				handler.postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						changeFragment(new IncomeStatisticFragment(),false);
+					}
+				}, SHOW_MENU_DELAY);
+				
+			}
+			fragmentId = FRAGMENT_USERPROFIT;
+			slideMenu.showAbove();
+			break;
+         case R.id.login_button:
+			
 			if (AccessToken.getCurrentAccessToken() != null
 					&& com.facebook.Profile.getCurrentProfile() != null) {
 				LoginManager.getInstance().logOut();
@@ -339,14 +475,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				facebookLogin();
 			}
 			break;
-		case R.id.menu_statistic:
-			if (checkLogIn()) {
-				changeFragment(new IncomeStatisticFragment());
-			}
-
-			slideMenu.showAbove();
-			break;
-
 		default:
 			break;
 		}
@@ -434,18 +562,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	}
 
-	public void addFragment(Fragment fragment) {
-		try {
-			curFragment = fragment;
-			FragmentTransaction ft = getSupportFragmentManager()
-					.beginTransaction();
-			ft.add(R.id.lnHomeContainer, fragment);
-			ft.commit();
-		} catch (Exception e) {
-			Log.e("ERR change frag ", "" + e.getMessage());
-		}
-
-	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

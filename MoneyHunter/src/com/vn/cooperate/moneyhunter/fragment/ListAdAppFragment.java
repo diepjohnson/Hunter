@@ -16,22 +16,22 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.vn.cooperate.moneyhunter.MainActivity;
 import com.vn.cooperate.moneyhunter.R;
 import com.vn.cooperate.moneyhunter.adapter.ListAdAppAdapter;
 import com.vn.cooperate.moneyhunter.connect.AppConnect;
-import com.vn.cooperate.moneyhunter.fragment.dialog.DialogMessage;
 import com.vn.cooperate.moneyhunter.model.AppModel;
 import com.vn.cooperate.moneyhunter.model.UserModel;
 import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
-import com.vn.cooperate.moneyhunter.util.DialogUtils;
 
 public class ListAdAppFragment extends Fragment {
 
 	static MainActivity mActivity; 
 	LayoutInflater inflater;
 	ListView lvListAdApp;
+	TextView tvMessage;
 	List<AppModel> listApp = new ArrayList<AppModel>();
 	int start=0;
 	int number =10;
@@ -47,6 +47,56 @@ public class ListAdAppFragment extends Fragment {
 		mActivity = (MainActivity) activity;
 		inflater = (LayoutInflater) mActivity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		adapter.notifyDataSetChanged();
+		mActivity.setFragmentId(MainActivity.FRAGMENT_DOWNLOAD);
+	}
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.fragment_list_ad_app, container, false);
+		
+		 user = UserModel.getUserInfor(mActivity);
+//		if(user.getUserId()!=null&& !user.getUserId().equals(""))
+//		{
+			lvListAdApp = (ListView) v.findViewById(R.id.lvListAdApp);
+			tvMessage = (TextView) v.findViewById(R.id.tvMessage);
+			adapter = new ListAdAppAdapter (listApp,mActivity.getBaseContext(),getCoinListener);
+			lvListAdApp.setAdapter(adapter);
+			mActivity.showLoadingMessage(mActivity.getString(R.string.processing));
+			AppConnect.getListADAPP(start, number,user.getUserId(), getListAppListener);
+			
+			//su kien keo den cuoi cua list de load them du lieu
+			lvListAdApp.setOnScrollListener(new OnScrollListener() {
+						@Override
+						public void onScroll(AbsListView view, int firstVisibleItem,
+								int visibleItemCount, int totalItemCount) {
+							
+							if (isStartScroll&&!isScroll &&(firstVisibleItem + visibleItemCount) == totalItemCount) {
+								
+								if (start !=-1) {
+									//List<ClipModel> temp =getDataByPage();
+									mActivity.showLoadingMessage(mActivity.getString(R.string.processing));
+									AppConnect.getListADAPP(start, number,user.getUserId(), getListAppListener);
+									isScroll = true;
+								}
+							}
+							
+						}
+						@Override
+						public void onScrollStateChanged(AbsListView view, int scrollState) {}
+					});
+			
+//		}
+		
+		return v;
+	}
+	
 	
 	
   ConnectApiListener getCoinListener = new ConnectApiListener() {
@@ -69,24 +119,24 @@ public class ListAdAppFragment extends Fragment {
 						if(userError==0)
 						{
 							int coin = data.getInt("coin");
-							mActivity.showMessage("Message", mActivity.getString(R.string.getCoinSuccess)+coin);
+							mActivity.showMessageDialog("Message", mActivity.getString(R.string.getCoinSuccess)+coin);
 						}
 						
 						if(userError==1)
 						{
 					
-							mActivity.showMessage("Message", mActivity.getString(R.string.actionfail));
+							mActivity.showMessageDialog("Message", mActivity.getString(R.string.actionfail));
 						}
 						
 						if(userError==2)
 						{
 					
-							mActivity.showMessage("Message", mActivity.getString(R.string.actionErr));
+							mActivity.showMessageDialog("Message", mActivity.getString(R.string.actionErr));
 						}
 						}
 					else
 					{
-						mActivity.showMessage("Message", mActivity.getString(R.string.badTransaction));
+						mActivity.showMessageDialog("Message", mActivity.getString(R.string.badTransaction));
 					}
 					
 					
@@ -96,7 +146,7 @@ public class ListAdAppFragment extends Fragment {
 					 catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-						mActivity.showMessage("Message", mActivity.getString(R.string.error));
+						mActivity.showMessageDialog("Message", mActivity.getString(R.string.error));
 					}
 				}
 			});
@@ -110,60 +160,13 @@ public class ListAdAppFragment extends Fragment {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-				mActivity.showMessage("Message", mActivity.getString(R.string.connectErr));
+				mActivity.showMessageDialog("Message", mActivity.getString(R.string.connectErr));
 				}
 			});
 		}
 	};
 	
-	@Override
-	public void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		adapter.notifyDataSetChanged();
-	}
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		View v = inflater.inflate(R.layout.fragment_list_ad_app, container, false);
-		
-		 user = UserModel.getUserInfor(mActivity);
-//		if(user.getUserId()!=null&& !user.getUserId().equals(""))
-//		{
-			lvListAdApp = (ListView) v.findViewById(R.id.lvListAdApp);
-			
-			adapter = new ListAdAppAdapter (listApp,mActivity.getBaseContext(),getCoinListener);
-			lvListAdApp.setAdapter(adapter);
-			DialogUtils.vDialogLoadingShowProcessing(mActivity, false);
-			AppConnect.getListADAPP(start, number,user.getUserId(), getListAppListener);
-			
-			//su kien keo den cuoi cua list de load them du lieu
-			lvListAdApp.setOnScrollListener(new OnScrollListener() {
-						@Override
-						public void onScroll(AbsListView view, int firstVisibleItem,
-								int visibleItemCount, int totalItemCount) {
-							
-							if (isStartScroll&&!isScroll &&(firstVisibleItem + visibleItemCount) == totalItemCount) {
-								
-								if (start !=-1) {
-									//List<ClipModel> temp =getDataByPage();
-									DialogUtils.vDialogLoadingShowProcessing(mActivity, false);
-									AppConnect.getListADAPP(start, number,user.getUserId(), getListAppListener);
-									isScroll = true;
-								}
-							}
-							
-						}
-						@Override
-						public void onScrollStateChanged(AbsListView view, int scrollState) {}
-					});
-			
-//		}
-		
-		return v;
-	}
-	
+
 	
 Handler handle = new Handler();
 	
@@ -178,34 +181,49 @@ Handler handle = new Handler();
 				
 				@Override
 				public void run() {
-					DialogUtils.vDialogLoadingDismiss();
-					// TODO Auto-generated method stub
-					List<AppModel> list = 	AppConnect.getListAdAppFromJson(data);
-					if(!isScroll)
-					{
-						if(list.size()>0)
+					try {
+						mActivity.hideLoadingMessage();
+						// TODO Auto-generated method stub
+						List<AppModel> list = 	AppConnect.getListAdAppFromJson(data);
+						if(listApp.size()==0&&list.size()==0)
 						{
-						
-						listApp.addAll(list);
-						adapter.notifyDataSetChanged();
-						start+= list.size();
-						isStartScroll=true;
-						}
-					}
-					else
-					{
-						if(list.size()>0)
-						{
-						listApp.addAll(list);
-						adapter.notifyDataSetChanged();
-						start+= list.size();
+							tvMessage.setVisibility(View.VISIBLE);
 						}
 						else
 						{
-							start=-1;
+							tvMessage.setVisibility(View.GONE);
 						}
-						isScroll=false;
+						
+						if(!isScroll)
+						{
+							if(list.size()>0)
+							{
+							
+							listApp.addAll(list);
+							adapter.notifyDataSetChanged();
+							start+= list.size();
+							isStartScroll=true;
+							}
+						}
+						else
+						{
+							if(list.size()>0)
+							{
+							listApp.addAll(list);
+							adapter.notifyDataSetChanged();
+							start+= list.size();
+							}
+							else
+							{
+								start=-1;
+							}
+							isScroll=false;
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
 					}
+				
 					
 				}
 			});
@@ -221,7 +239,8 @@ Handler handle = new Handler();
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					DialogUtils.vDialogLoadingDismiss();
+					mActivity.hideLoadingMessage();
+					
 				}
 			});
 		}
