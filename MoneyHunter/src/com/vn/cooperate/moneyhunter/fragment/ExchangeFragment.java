@@ -1,6 +1,12 @@
 package com.vn.cooperate.moneyhunter.fragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.vn.cooperate.moneyhunter.MainActivity;
 import com.vn.cooperate.moneyhunter.R;
+import com.vn.cooperate.moneyhunter.connect.TransactionConnect;
+import com.vn.cooperate.moneyhunter.myinterface.ConnectApiListener;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class ExchangeFragment extends Fragment implements OnClickListener {
 	private Button btnMobi10k;
@@ -29,8 +36,26 @@ public class ExchangeFragment extends Fragment implements OnClickListener {
 	private Button btnVina100k;
 	private Button btnVina200k;
 	private Button btnVina500k;
-	private void exchangeCard(int cardType, int agency){
+	private ConnectApiListener listener = new ConnectApiListener() {
 		
+		@Override
+		public void connectSucessfull(JSONObject data) throws JSONException {
+			getActivity().runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					Toast.makeText(getActivity(), "Exchanging", Toast.LENGTH_LONG).show();
+				}
+			});
+		}
+		
+		@Override
+		public void connectError() {
+			
+		}
+	};
+	private void exchangeCard(int cardType, int agency){
+		TransactionConnect.getCardExchange("14", "2", "1", "6wunas4919s1er3uc6l9", listener);
 	} 
 
 	@Override
@@ -82,7 +107,7 @@ public class ExchangeFragment extends Fragment implements OnClickListener {
 		int id = v.getId();
 		switch (id) {
 		case R.id.btn_dongmo_10k:
-
+			exchangeCard(1, 1);
 			break;
 		case R.id.btn_dongmo_20k:
 
@@ -139,5 +164,9 @@ public class ExchangeFragment extends Fragment implements OnClickListener {
 			break;
 		}
 
+	}@Override
+	public void onResume() {
+		super.onResume();
+		MainActivity.setFragmentId(MainActivity.FRAGMENT_EXCHANGE);
 	}
 }

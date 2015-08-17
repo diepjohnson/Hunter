@@ -48,6 +48,7 @@ import com.facebook.share.widget.ShareDialog;
 import com.slidingmenu.lib.SlidingMenu;
 import com.vn.cooperate.moneyhunter.connect.GCMConnect;
 import com.vn.cooperate.moneyhunter.connect.UserConnect;
+import com.vn.cooperate.moneyhunter.fragment.ExchangeFragment;
 import com.vn.cooperate.moneyhunter.fragment.FriendsFragment;
 import com.vn.cooperate.moneyhunter.fragment.IncomeStatisticFragment;
 import com.vn.cooperate.moneyhunter.fragment.InviteFragment;
@@ -83,7 +84,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	public static int FRAGMENT_FRIENDLIST=3;
 	public static int FRAGMENT_LUCKYCARD=4;
 	public static int FRAGMENT_USERPROFIT=5;
-	int fragmentId=0;
+	public static int FRAGMENT_EXCHANGE=6;
+	static int fragmentId=0;
 
 	@Override
 	protected void onResume() {
@@ -339,7 +341,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	}
 	
 	
-	public void setFragmentId(int id)
+	public static  void setFragmentId(int id)
 	{
 		fragmentId = id;
 	}
@@ -475,6 +477,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				facebookLogin();
 			}
 			break;
+         case R.id.menu_exchange:
+        	 changeFragment(new ExchangeFragment(), false);
+        	 fragmentId = FRAGMENT_DOWNLOAD;
+        	 break;
 		default:
 			break;
 		}
