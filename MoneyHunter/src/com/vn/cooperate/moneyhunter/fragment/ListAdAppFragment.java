@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.vn.cooperate.moneyhunter.MainActivity;
@@ -31,7 +33,9 @@ public class ListAdAppFragment extends Fragment {
 	static MainActivity mActivity; 
 	LayoutInflater inflater;
 	ListView lvListAdApp;
-	TextView tvMessage;
+	LinearLayout lnFooterContainer;
+	ProgressBar footerProgress;
+	TextView tvMessage,tvfooterMessage;
 	List<AppModel> listApp = new ArrayList<AppModel>();
 	int start=0;
 	int number =10;
@@ -71,6 +75,11 @@ public class ListAdAppFragment extends Fragment {
 			mActivity.showLoadingMessage(mActivity.getString(R.string.processing));
 			AppConnect.getListADAPP(start, number,user.getUserId(), getListAppListener);
 			
+			View footerView = inflater.inflate(R.layout.listview_footer, lvListAdApp, false);
+			lnFooterContainer = (LinearLayout) footerView.findViewById(R.id.lnFooterContainer);
+			tvfooterMessage = (TextView) footerView.findViewById(R.id.tvfootermessage);
+			footerProgress = (ProgressBar) footerView.findViewById(R.id.footerProgress);
+			lvListAdApp.addFooterView(footerView);
 			//su kien keo den cuoi cua list de load them du lieu
 			lvListAdApp.setOnScrollListener(new OnScrollListener() {
 						@Override
@@ -81,7 +90,10 @@ public class ListAdAppFragment extends Fragment {
 								
 								if (start !=-1) {
 									//List<ClipModel> temp =getDataByPage();
-									mActivity.showLoadingMessage(mActivity.getString(R.string.processing));
+									lnFooterContainer.setVisibility(View.VISIBLE);
+									footerProgress.setVisibility(View.VISIBLE);
+									tvfooterMessage.setText(mActivity.getString(R.string.loadMore));
+									//mActivity.showLoadingMessage(mActivity.getString(R.string.processing));
 									AppConnect.getListADAPP(start, number,user.getUserId(), getListAppListener);
 									isScroll = true;
 								}
@@ -196,6 +208,7 @@ Handler handle = new Handler();
 						
 						if(!isScroll)
 						{
+							
 							if(list.size()>0)
 							{
 							
@@ -204,17 +217,26 @@ Handler handle = new Handler();
 							start+= list.size();
 							isStartScroll=true;
 							}
+							else
+							{
+								
+							}
 						}
 						else
 						{
 							if(list.size()>0)
 							{
+							lnFooterContainer.setVisibility(View.GONE);
 							listApp.addAll(list);
 							adapter.notifyDataSetChanged();
 							start+= list.size();
+							
 							}
 							else
 							{
+								lnFooterContainer.setVisibility(View.VISIBLE);
+								footerProgress.setVisibility(View.GONE);
+								tvfooterMessage.setText(mActivity.getString(R.string.loadAll));
 								start=-1;
 							}
 							isScroll=false;

@@ -134,7 +134,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		 isShowMenu =false;
 		   slideMenu.showAbove();
 		   FragmentManager fm =getSupportFragmentManager();
-		   if(fm.getBackStackEntryCount()>0)
+		   if(fm.getBackStackEntryCount()>0&&fragmentId!=FRAGMENT_DOWNLOAD)
 		   {
 			   getSupportFragmentManager().popBackStack();
 		   }
