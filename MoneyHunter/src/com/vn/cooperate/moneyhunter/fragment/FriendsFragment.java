@@ -67,7 +67,7 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 				String  friendId = model.getId();
 				String avatar = model.getAvatar();
 				String createDate = model.getCreateDate();
-				homeActivity.changeFragment(new DetailFriendFragment(userId, friendId, avatar,createDate));
+				homeActivity.changeFragment(new DetailFriendFragment(userId, friendId, avatar,createDate),false);
 			}
 		});
 		return view;

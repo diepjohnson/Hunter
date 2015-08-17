@@ -17,7 +17,7 @@ public class DialogUtils {
 
 	private static Dialog dialogLoading;
 	public static void vDialogLoadingShow(Context mContext, String message, boolean isCancelEnable) {
-		dialogLoading = new Dialog(mContext, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+		dialogLoading = new Dialog(mContext, android.R.style.Theme_Translucent_NoTitleBar);
 		dialogLoading.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
 		dialogLoading.setContentView(R.layout.dialog_loadding);
 		dialogLoading.setCancelable(isCancelEnable);
@@ -50,7 +50,7 @@ public class DialogUtils {
 
 	public static void showDialogMessage(Context mContext, String message, boolean isCancelEnable){
 		// TODO Auto-generated method stub
-		dialogLoading = new Dialog(mContext, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+		dialogLoading = new Dialog(mContext, android.R.style.Theme_Translucent_NoTitleBar);
 		dialogLoading.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
 		dialogLoading.setContentView(R.layout.dialog_loadding);
 		dialogLoading.setCancelable(isCancelEnable);

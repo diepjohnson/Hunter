@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent" >
 
-     <RelativeLayout
-        android:layout_width="fill_parent"
+    <RelativeLayout
         android:id="@+id/rlHeader"
-        android:layout_alignParentTop="true"
+        android:layout_width="fill_parent"
         android:layout_height="50dp"
+        android:layout_alignParentTop="true"
         android:background="@color/actionBarBackground" >
 
         <ImageView
@@ -28,18 +27,60 @@
             android:textSize="18sp"
             android:textStyle="bold" />
     </RelativeLayout>
-    
-    
-    
+
     <com.slidingmenu.lib.SlidingMenu
-        android:layout_below="@+id/rlHeader"
         xmlns:sliding="http://schemas.android.com/apk/res-auto"
         android:id="@+id/sliding_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/rlHeader"
         sliding:aboveTouchMode="margin"
         sliding:behindWidth="250dp"
         sliding:viewAbove="@layout/home_content"
         sliding:viewBehind="@layout/home_menu" />
+
+    <LinearLayout
+        android:clickable="true"
+        android:id="@+id/lnSystemMessage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="4"
+        android:visibility="gone"
+        android:background="#66666666"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_below="@+id/rlHeader" >
+        
+        <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/custom_loading_dialog"
+        android:clickable="true" >
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true" />
+
+       
+
+        <TextView
+            android:id="@+id/tvLoadingMessage"
+           android:textSize="12sp"
+           android:gravity="center"
+            android:layout_marginLeft="8dp"
+          
+            android:textColor="#000000"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/processing" />
+    </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

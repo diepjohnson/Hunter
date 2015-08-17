@@ -19,6 +19,7 @@
     <string name="facebook_app_id">840614236033853</string>
     <!-- ducnm start -->
     <string name="connectErr">Thao tác thất bại, vui lòng kiểm tra lại kết nối mạng!</string>
+     <string name="noNewApp">Hiện tại không có ứng dụng nào mới, xin vui lòng quay lại sau!</string>
     <string name="actionfail">Thao tác thất bại, vui lòng thử lại sau!</string>
     <string name="actionErr">Có lỗi xảy ra, vui lòng liên hệ để được trợ giúp!</string>
     <string name="badTransaction">Thao tác thất bại, phát hiện yêu cầu bất thường!</string>
@@ -31,6 +32,9 @@
     <string name="luckeyCardText">Mỗi ngày bạn có cơ hội lật bài 1 lần để nhận coin</string>
     <string name="getCoin">Get Coin</string>
     <string name="processing">Đang xử lý, vui lòng chờ trong giây lát!</string>
+    <string name="loadMore">Đang tải thêm dữ liệu, vui lòng chờ trong giây lát!</string>
+    <string name="loadAll">Đã tải hết dữ liệu!</string>
+    
     <!-- ducnm end -->
     <!-- Fragment Invite -->
     <string name="invite_code">Mã giới thiệu:</string>
