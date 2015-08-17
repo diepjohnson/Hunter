@@ -1,81 +1,251 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <LinearLayout
-        android:id="@+id/ln10k"
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:weightSum="24" >
+        android:layout_height="wrap_content" >
 
-        <Button
-            android:id="@+id/btn_dongmo"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/ln_dongmo"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:background="@drawable/dongmo" />
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/btn_thucvi"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/ln_dongmo1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="24" >
+
+                <Button
+                    android:id="@+id/btn_dongmo_10k"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:background="@drawable/dongmo" />
+
+                <Button
+                    android:id="@+id/btn_dongmo_20k"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/twenty_dongmo"
+                    android:gravity="center_horizontal" />
+
+                <Button
+                    android:id="@+id/btn_dongmo_50k"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/fifty_dongmo" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ln_dongmo2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="24" >
+
+                <Button
+                    android:id="@+id/btn_dongmo_100k"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:background="@drawable/onehundred_dongmo" />
+
+                <Button
+                    android:id="@+id/btn_dongmo_200k"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/twohundred_dongmo"
+                    android:gravity="center_horizontal" />
+
+                <Button
+                    android:id="@+id/btn_dongmo_500k"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/fivehundred_dongmo" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ln_thucvi"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="8"
-            android:background="@drawable/thucvi"
-            android:gravity="center_horizontal" />
+            android:layout_below="@id/ln_dongmo"
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/btn_nguytheo"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/ln_thucvi1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="24" >
+
+                <Button
+                    android:id="@+id/btn_thucvi_10k"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:background="@drawable/thucvi" />
+
+                <Button
+                    android:id="@+id/btn_thucvi_20k"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/twenty_thucvi"
+                    android:gravity="center_horizontal" />
+
+                <Button
+                    android:id="@+id/btn_thucvi_50k"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/fifty_thucvi" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ln_thucvi2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:weightSum="24" >
+
+                <Button
+                    android:id="@+id/btn_thucvi_100k"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:background="@drawable/onehundred_thucvi" />
+
+                <Button
+                    android:id="@+id/btn_thucvi_200k"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/twohundred_thucvi"
+                    android:gravity="center_horizontal" />
+
+                <Button
+                    android:id="@+id/btn_thucvi_500k"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/fivehundred_thucvi" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ln_nguytheo1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="8"
-            android:background="@drawable/nguytheo" />
-    </LinearLayout>
+            android:layout_below="@id/ln_thucvi"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="24" >
 
-    <LinearLayout
-        android:id="@+id/ln20k"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ln10k"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:weightSum="24" >
+            <Button
+                android:id="@+id/btn_nguytheo_10k"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:background="@drawable/nguytheo" />
 
-        <Button
-            android:id="@+id/btn_dongmo_twenty"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
+            <Button
+                android:id="@+id/btn_nguytheo_20k"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="8"
+                android:background="@drawable/twenty_nguytheo"
+                android:gravity="center_horizontal" />
+
+            <Button
+                android:id="@+id/btn_nguytheo_50k"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="8"
+                android:background="@drawable/fifty_nguytheo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ln_nguytheo2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:background="@drawable/twenty_dongmo" />
+            android:layout_below="@id/ln_nguytheo1"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="24" >
 
-        <Button
-            android:id="@+id/btn_thucvi_twenty"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="8"
-            android:background="@drawable/twenty_thucvi"
-            android:gravity="center_horizontal" />
+            <Button
+                android:id="@+id/btn_nguytheo_100k"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:background="@drawable/onehundred_nguytheo" />
 
-        <Button
-            android:id="@+id/btn_nguytheo_twenty"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="8"
-            android:background="@drawable/twenty_nguytheo" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_nguytheo_200k"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="8"
+                android:background="@drawable/twohundred_nguytheo"
+                android:gravity="center_horizontal" />
 
-</RelativeLayout>
+            <Button
+                android:id="@+id/btn_nguytheo_500k"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="8"
+                android:background="@drawable/fivehundred_nguytheo" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>

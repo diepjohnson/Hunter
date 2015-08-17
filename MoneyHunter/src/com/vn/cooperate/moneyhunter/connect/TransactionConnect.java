@@ -25,4 +25,12 @@ public class TransactionConnect {
 			param.add(ConnectSupport.getParam("user_id", userId+""));
 			cnn.getJSONFromUrl(URL_TRANSACTION, param, listener);
 		}
+	 
+	 public static void getCardExchange(String userId,ConnectApiListener listener)
+		{
+			ConnectSupport cnn = new ConnectSupport();
+			List<NameValuePair> param = new ArrayList<NameValuePair>();
+			param.add(ConnectSupport.getParam("user_id", userId+""));
+			cnn.getJSONFromUrl(URL_TRANSACTION, param, listener);
+		}
 }
