@@ -32,6 +32,9 @@
     <string name="luckeyCardText">Mỗi ngày bạn có cơ hội lật bài 1 lần để nhận coin</string>
     <string name="getCoin">Get Coin</string>
     <string name="processing">Đang xử lý, vui lòng chờ trong giây lát!</string>
+    <string name="loadMore">Đang tải thêm dữ liệu, vui lòng chờ trong giây lát!</string>
+    <string name="loadAll">Đã tải hết dữ liệu!</string>
+    
     <!-- ducnm end -->
     <!-- Fragment Invite -->
     <string name="invite_code">Mã giới thiệu:</string>
