@@ -4,6 +4,6 @@
     <item android:drawable="@drawable/dongmo_twenty" android:state_enabled="true" android:state_pressed="true"/>
     <item android:drawable="@drawable/dongmo_twenty" android:state_enabled="true" android:state_focused="true"/>
     <item android:drawable="@drawable/dongmo_twenty" android:state_selected="true"/>
-    <item android:drawable="@drawable/twenty_dongmo" android:state_enabled="true"/>
+    <item android:drawable="@drawable/dongmo_20k" android:state_enabled="true"/>
 
 </selector>

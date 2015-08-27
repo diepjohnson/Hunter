@@ -85,4 +85,7 @@
 	<string name="exchange_tab">Bạn đã đổi thưởng được</string>
 	<string name="label_cost">Thẻ cào mệnh giá: </string>
 	<string name="code_card">Mã thẻ: </string>
+	<string name="nguytheo">Viettel</string>
+	<string name="thucvi">Vinaphone</string>
+	<string name="dongmo">Mobifone</string>
 </resources>

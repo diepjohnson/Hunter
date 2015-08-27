@@ -478,8 +478,20 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			}
 			break;
          case R.id.menu_exchange:
-        	 changeFragment(new ExchangeFragment(), false);
-        	 fragmentId = FRAGMENT_DOWNLOAD;
+        	 if (checkLogIn()&&fragmentId!=FRAGMENT_EXCHANGE) {
+ 				
+ 				handler.postDelayed(new Runnable() {
+ 					
+ 					@Override
+ 					public void run() {
+ 						// TODO Auto-generated method stub
+ 						changeFragment(new ExchangeFragment(), false);
+ 					}
+ 				}, SHOW_MENU_DELAY);
+ 				
+ 			}
+        	 slideMenu.showAbove();
+        	 fragmentId = FRAGMENT_EXCHANGE;
         	 break;
 		default:
 			break;

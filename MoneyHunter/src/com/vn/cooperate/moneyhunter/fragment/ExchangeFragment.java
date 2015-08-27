@@ -39,12 +39,20 @@ public class ExchangeFragment extends Fragment implements OnClickListener {
 	private ConnectApiListener listener = new ConnectApiListener() {
 		
 		@Override
-		public void connectSucessfull(JSONObject data) throws JSONException {
+		public void connectSucessfull(final JSONObject data) throws JSONException {
 			getActivity().runOnUiThread(new Runnable() {
 				
 				@Override
 				public void run() {
-					Toast.makeText(getActivity(), "Exchanging", Toast.LENGTH_LONG).show();
+					try {
+						if(data.getString("errorCode").equals("0") && data.getString("resultCode").equals("1")){
+							Toast.makeText(getActivity(), "Exchanging Card Success", Toast.LENGTH_LONG).show();
+						}
+						
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			});
 		}
